@@ -549,3 +549,29 @@ theorem ast_2_47 (p q: Prop) : ¬(p ∨ q) → ¬p ∨ q := by
   have ast_2_45 := ast_2_45 p q
   have ast_2_2 := ast_2_2 (¬p) q
   Syll [ast_2_45, ast_2_2]
+
+theorem ast_2_48 (p q: Prop) : ¬(p ∨ q) → p ∨ ¬q := by
+  have ast_2_46 := ast_2_46 p q
+  have ast_1_3 := ast_1_3 p (¬q)
+  Syll [ast_2_46, ast_1_3]
+
+theorem ast_2_49 (p q: Prop) : ¬(p ∨ q) → ¬p ∨ ¬q := by
+  have ast_2_45 := ast_2_45 p q
+  have ast_2_2 := ast_2_2 (¬p) (¬q)
+  Syll [ast_2_45, ast_2_2]
+
+theorem ast_2_5 (p q: Prop) : ¬(p → q) → ¬p → q := by
+  have ast_2_47 := ast_2_47 (¬p) q
+  repeat rw [ast_1_01] at *
+  exact ast_2_47
+
+theorem ast_2_51 (p q: Prop) : ¬(p → q) → (p → ¬q) := by
+  have ast_2_48 := ast_2_48 (¬p) q
+  repeat rw [ast_1_01] at *
+  exact ast_2_48
+
+theorem ast_2_52 (p q: Prop) : ¬(p → q) → (¬p → ¬q) := by
+  have ast_2_49 := ast_2_49 (¬p) q
+  repeat rw [ast_1_01] at *
+  exact ast_2_49
+

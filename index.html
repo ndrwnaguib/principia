@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2024-08-10 Sat 09:01 -->
+<!-- 2024-08-10 Sat 18:14 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Formalizing Bertrand Russell's Principia Mathematica Using Lean4</title>
@@ -501,27 +501,32 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgcc96e93">1. Notation</a></li>
-<li><a href="#org1ad5d53">2. Editing</a></li>
-<li><a href="#orgd772393">3. Notes on the formalization</a></li>
+<li><a href="#orgf7ab93b">1. Notation</a></li>
+<li><a href="#org82de882">2. Editing</a></li>
+<li><a href="#org025712c">3. Notes on the formalization</a>
+<ul>
+<li><a href="#orgc1ece87">3.1. \(\ast 1 \cdot 11\)</a></li>
+<li><a href="#orgb2f764a">3.2. Metaprogramming <code>Syll</code></a></li>
+</ul>
+</li>
+<li><a href="#orgce92b48">4. Remarks</a></li>
 </ul>
 </div>
 </div>
 
-<div id="org451fd20" class="figure">
+<div id="orgd3b960e" class="figure">
 <p><img src="./images/principia-mathematica-book-cover.png" alt="principia-mathematica-book-cover.png" align="right" width="300px" />
 </p>
-<p><span class="figure-number">Figure 1: </span>Front-cover of the Principia Mathematica</p>
 </div>
 
 <p>
-This project aims to formalize the first volume of Bertrand Russell's Principia
-Mathematica using the Lean theorem prover. The goal is to ensure that the
-formalization aligns clearly with the corresponding theorems in the book to
-avoid confusion.
+This project aims to formalize the first volume of Prof. Bertrand Russell's
+Principia Mathematica using the Lean theorem prover. The goal is to ensure that
+the formalization aligns clearly with the corresponding theorems in the book to
+avoid confusion (See <a href="#orgb2f764a">Metaprogramming <code>Syll</code></a>)
 </p>
-<div id="outline-container-orgcc96e93" class="outline-2">
-<h2 id="orgcc96e93"><span class="section-number-2">1.</span> Notation</h2>
+<div id="outline-container-orgf7ab93b" class="outline-2">
+<h2 id="orgf7ab93b"><span class="section-number-2">1.</span> Notation</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 <a href="https://plato.stanford.edu/entries/principia-mathematica/">Principia Mathematica</a>'s notation (Peano-Russell notation) is exceptionally known
@@ -546,8 +551,8 @@ Russell.
 </p>
 </div>
 </div>
-<div id="outline-container-org1ad5d53" class="outline-2">
-<h2 id="org1ad5d53"><span class="section-number-2">2.</span> Editing</h2>
+<div id="outline-container-org82de882" class="outline-2">
+<h2 id="org82de882"><span class="section-number-2">2.</span> Editing</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 I have included a \(\LaTeX\) fragment with each theorem that represents Prof. Russell's
@@ -557,21 +562,30 @@ installing the <code>Better Comments</code> extension. This is how it looked lik
 </p>
 
 
-<div id="org59611ff" class="figure">
+<div id="orgbaf05d1" class="figure">
 <p><img src="./images/editing-experience.png" alt="editing-experience.png" align="center" width="100%" />
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-orgd772393" class="outline-2">
-<h2 id="orgd772393"><span class="section-number-2">3.</span> Notes on the formalization</h2>
+<div id="outline-container-org025712c" class="outline-2">
+<h2 id="org025712c"><span class="section-number-2">3.</span> Notes on the formalization</h2>
 <div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-orgc1ece87" class="outline-3">
+<h3 id="orgc1ece87"><span class="section-number-3">3.1.</span> \(\ast 1 \cdot 11\)</h3>
+<div class="outline-text-3" id="text-3-1">
 <p>
 Prof. Russell repeatedly used *1.11 to indicate the inference of a proposition
-from another, for example [(3).(8).*1.11] is the proposition deduced by chaining
-proposition (8) and (3).
+from another, for example \([(3).(8).\ast 1\cdot 11]\) is the proposition deduced by chaining
+proposition (8) and (3). In Lean, this could be analogous to several tactics or
+atoms, e.g., <code>&lt;|</code>, <code>simp</code>, etc.
 </p>
-
+</div>
+</div>
+<div id="outline-container-orgb2f764a" class="outline-3">
+<h3 id="orgb2f764a"><span class="section-number-3">3.2.</span> Metaprogramming <code>Syll</code></h3>
+<div class="outline-text-3" id="text-3-2">
 <p>
 The experience I planned for when reading the formalization is to have the
 corresponding text in the Principia included in the same file, only with Prof.
@@ -581,10 +595,10 @@ new tactic</a> to follow Prof. Russell's notation for <code>Syll</code>:
 </p>
 
 
-<div id="orgf03c7de" class="figure">
+<div id="orgf9798fe" class="figure">
 <p><img src="./images/syll.png" alt="syll.png" align="center" width="50%" />
 </p>
-<p><span class="figure-number">Figure 2: </span>The <code>Syll</code> abbreviation defined in *B</p>
+<p><span class="figure-number">Figure 1: </span>The <code>Syll</code> abbreviation defined in *B</p>
 </div>
 
 <div class="org-src-container">
@@ -670,10 +684,10 @@ Consequently, I could write the following:
 </p>
 
 
-<div id="orgc27371e" class="figure">
+<div id="org4e1a6c1" class="figure">
 <p><img src="./images/syll-example.png" alt="syll-example.png" width="100%" />
 </p>
-<p><span class="figure-number">Figure 3: </span>Illustration of the <code>Syll</code> tactic on proving \(\ast 2\cdot 16\) and \(\ast 2\cdot 17\)</p>
+<p><span class="figure-number">Figure 2: </span>Illustration of the <code>Syll</code> tactic on proving \(\ast 2\cdot 16\) and \(\ast 2\cdot 17\)</p>
 </div>
 
 <p>
@@ -681,19 +695,32 @@ It was only a result of my greed to write a tactic that handles a more general
 form of syllogism; I believe in the case of the Principia, I could have got away
 with one that accepts two hypotheses.
 </p>
-
+</div>
+</div>
+</div>
+<div id="outline-container-orgce92b48" class="outline-2">
+<h2 id="orgce92b48"><span class="section-number-2">4.</span> Remarks</h2>
+<div class="outline-text-2" id="text-4">
 <p>
-I do not see a particular use for this project except for learning the thought
-process to build mathematics from scratch. Although the Principia is thought to
-be “a monumental failure”, as said by Prof. Freeman Dyson, it was an enriching
-experience for me to read as well as to formalize.
+I do not see a particular use for this project except for learning the
+thought-process of building mathematics from scratch. Although the Principia is
+thought to be “a monumental failure”, as said by Prof. Freeman Dyson, it was an
+enriching experience for me to read as well as to formalize-especially after
+observing how the latter, more complicated results, are obtained using simpler
+ones I personally proved.
 </p>
+
+
+<div id="orge2775b3" class="figure">
+<p><img src="./images/building-from-constituents.png" alt="building-from-constituents.png" width="100%" />
+</p>
+</div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Andrew Naguib</p>
-<p class="date">Created: 2024-08-10 Sat 09:01</p>
+<p class="date">Created: 2024-08-10 Sat 18:14</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

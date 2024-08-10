@@ -11,10 +11,10 @@
 #+ATTR_HTML: :width 300px
 [[./images/principia-mathematica-book-cover.png]]
 
-This project aims to formalize the first volume of Bertrand Russell's Principia
-Mathematica using the Lean theorem prover. The goal is to ensure that the
-formalization aligns clearly with the corresponding theorems in the book to
-avoid confusion.
+This project aims to formalize the first volume of Prof. Bertrand Russell's
+Principia Mathematica using the Lean theorem prover. The goal is to ensure that
+the formalization aligns clearly with the corresponding theorems in the book to
+avoid confusion (See [[*Metaprogramming =Syll=][Metaprogramming =Syll=]])
 
 * Notation
 
@@ -49,9 +49,14 @@ installing the =Better Comments= extension. This is how it looked like for me:
 
 * Notes on the formalization
 
+** $\ast 1 \cdot 11$
+
 Prof. Russell repeatedly used *1.11 to indicate the inference of a proposition
-from another, for example [(3).(8).*1.11] is the proposition deduced by chaining
-proposition (8) and (3).
+from another, for example $[(3).(8).\ast 1\cdot 11]$ is the proposition deduced by chaining
+proposition (8) and (3). In Lean, this could be analogous to several tactics or
+atoms, e.g., =<|=, =simp=, etc.
+
+** Metaprogramming =Syll=
 
 The experience I planned for when reading the formalization is to have the
 corresponding text in the Principia included in the same file, only with Prof.
@@ -156,8 +161,15 @@ It was only a result of my greed to write a tactic that handles a more general
 form of syllogism; I believe in the case of the Principia, I could have got away
 with one that accepts two hypotheses.
 
-I do not see a particular use for this project except for learning the thought
-process to build mathematics from scratch. Although the Principia is thought to
-be “a monumental failure”, as said by Prof. Freeman Dyson, it was an enriching
-experience for me to read as well as to formalize.
+* Remarks
+
+I do not see a particular use for this project except for learning the
+thought-process of building mathematics from scratch. Although the Principia is
+thought to be “a monumental failure”, as said by Prof. Freeman Dyson, it was an
+enriching experience for me to read as well as to formalize-especially after
+observing how the latter, more complicated results, are obtained using simpler
+ones I personally proved.
+
+#+ATTR_HTML: :width 100%
+[[./images/building-from-constituents.png]]
 
