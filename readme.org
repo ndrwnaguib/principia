@@ -1,4 +1,5 @@
 #+TITLE: Formalizing Bertrand Russell's Principia Mathematica Using Lean4
+#+EXPORT_FILE_NAME: ./index.html
 
 #+ATTR_HTML: :align right
 #+ATTR_ORG: :align center
