@@ -525,3 +525,27 @@ theorem ast_2_41 (p q: Prop) : (q ∨ (p ∨ q)) → p ∨ q := by
   have Sum := ast_1_6 p (q ∨ q) q
   exact (Sum <| Taut) <| (Assoc qp)
 
+theorem ast_2_42 (p q: Prop) : (¬p ∨ (p → q)) → (p → q) := by
+  have ast_2_4 := ast_2_4 (¬p) q
+  repeat rw [<- ast_1_01] at *
+  exact ast_2_4
+
+theorem ast_2_43 (p q: Prop) : (p → (p → q)) → (p → q) := by
+  have ast_2_42 := ast_2_42 p q
+  repeat rw [<- ast_1_01] at *
+  exact ast_2_42
+
+theorem ast_2_45 (p q: Prop) : ¬(p ∨ q) → ¬p := by
+  have ast_2_2 := ast_2_2 p q
+  have Transp := ast_2_16 p (p ∨ q)
+  exact Transp <| ast_2_2
+
+theorem ast_2_46 (p q: Prop) : ¬(p ∨ q) → ¬q := by
+  have ast_1_3 := ast_1_3 p q
+  have Transp := ast_2_16 q (p ∨ q)
+  exact Transp <| ast_1_3
+
+theorem ast_2_47 (p q: Prop) : ¬(p ∨ q) → ¬p ∨ q := by
+  have ast_2_45 := ast_2_45 p q
+  have ast_2_2 := ast_2_2 (¬p) q
+  Syll [ast_2_45, ast_2_2]
