@@ -316,6 +316,7 @@ def ImpProof.rfl (p : Expr) : ImpProof :=
 
 syntax "Syll" (ppSpace "[" term,* "]")? : tactic
 
+-- TODO: a pedantic change would be to process the hypotheses in reverse order.
 elab_rules : tactic
   | `(tactic| Syll $[[$[$terms?],*]]?) => withMainContext do
 
@@ -491,4 +492,36 @@ theorem ast_2_36 (p q r: Prop) : (q → r) → ((p ∨ q) → (r ∨ p)) := by
   have ast_2_05 := ast_2_05 (p ∨ q) (p ∨ r) (r ∨ p) Perm
   have Sum := ast_1_6 p q r
   Syll [Sum, ast_2_05]
+
+theorem ast_2_37 (p q r: Prop) : (q → r) → ((q ∨ p) → (p ∨ r)) := by
+  intro qr
+  have Perm := ast_1_4 q p
+  have Sum := ast_1_6 p q r qr
+  Syll [Perm, Sum]
+
+theorem ast_2_38 (p q r: Prop) : (q → r) → ((q ∨ p) → (r ∨ p)) := by
+  intro qr
+  have Perm := ast_1_4 q p
+  have Perm' := ast_1_4 p r
+  have Sum := ast_1_6 p q r qr
+  Syll [Perm, Sum, Perm']
+
+
+-- “The proofs of ∗2·37·38 are exactly analogous to that of ∗2·36. (We use
+-- ‘∗2·37·8’ as an abbreviation for ‘∗2·37 and ∗2·38.’ Such abbreviations will
+-- be used throughout.)
+
+theorem ast_2_4 (p q: Prop) : (p ∨ (p ∨ q)) → p ∨ q := by
+  intro pq
+  have ast_2_31 := ast_2_31 p p q
+  have Taut := ast_1_2 p
+  have ast_2_38 := ast_2_38 q (p ∨ p) p
+  exact (ast_2_38 <| Taut) <| (ast_2_31 pq)
+
+theorem ast_2_41 (p q: Prop) : (q ∨ (p ∨ q)) → p ∨ q := by
+  intro qp
+  have Assoc := ast_1_5 q p q
+  have Taut := ast_1_2 q
+  have Sum := ast_1_6 p (q ∨ q) q
+  exact (Sum <| Taut) <| (Assoc qp)
 
