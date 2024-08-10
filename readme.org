@@ -1,5 +1,10 @@
 #+TITLE: Formalizing Bertrand Russell's Principia Mathematica Using Lean4
 #+EXPORT_FILE_NAME: ./index.html
+#+OPTIONS: H:5 TeX:t
+#+HTML_MATHJAX: align: left indent: 5em tagside: left
+#+OPTIONS: p:t
+
+
 
 #+ATTR_HTML: :align right
 #+ATTR_ORG: :align center
@@ -11,7 +16,7 @@ Mathematica using the Lean theorem prover. The goal is to ensure that the
 formalization aligns clearly with the corresponding theorems in the book to
 avoid confusion.
 
-** Notation
+* Notation
 
 [[https://plato.stanford.edu/entries/principia-mathematica/][Principia Mathematica]]'s notation (Peano-Russell notation) is exceptionally known
 for its sophistication that it [[https://plato.stanford.edu/entries/pm-notation/][has a separate entry on the Stanford Encyclopedia
@@ -29,7 +34,7 @@ any inaccuracy (even if it does not necessarily falsify the proof), please let
 me know as I would like to proceed with the same spirit of rigor as Prof.
 Russell.
 
-** Editing
+* Editing
 
 I have included a $\LaTeX$ fragment with each theorem that represents Prof. Russell's
 proof. If you use Emacs, I recommend enabling =org-preview-latex= in the Lean
@@ -42,15 +47,11 @@ installing the =Better Comments= extension. This is how it looked like for me:
 [[./images/editing-experience.png]]
 
 
-I do not see a particular use for this project except for learning the thought
-process to build mathematics from scratch. Although the Principia is thought to
-be “a monumental failure”, as said by Prof. Freeman Dyson, it was an
-enriching experience for me to read as well as to formalize.
-
 * Notes on the formalization
 
 Prof. Russell repeatedly used *1.11 to indicate the inference of a proposition
-from another, for example [(3).(8).*1.11]
+from another, for example [(3).(8).*1.11] is the proposition deduced by chaining
+proposition (8) and (3).
 
 The experience I planned for when reading the formalization is to have the
 corresponding text in the Principia included in the same file, only with Prof.
@@ -61,11 +62,13 @@ new tactic]] to follow Prof. Russell's notation for =Syll=:
 #+ATTR_HTML: :align center
 #+ATTR_ORG: :align center
 #+ATTR_HTML: :width 50%
+#+CAPTION: The =Syll= abbreviation defined in *B
 [[./images/syll.png]]
 
 #+ATTR_HTML: :align center
 #+ATTR_HTML: :width 50%
 #+ATTR_ORG: :align center
+#+CAPTION: (I received [[https://leanprover.zulipchat.com/#narrow/stream/270676-lean4/topic/How.20to.20properly.20define.20the.20.22Syll.22.20tactic.3F/near/455803243][help from Kyle Miller]] to write this tactic in the way I wanted)
 #+begin_src lean4
 open Lean Meta Elab Tactic Term
 
@@ -143,8 +146,18 @@ elab_rules : tactic
       return none
 #+end_src
 
-/(I received [[https://leanprover.zulipchat.com/#narrow/stream/270676-lean4/topic/How.20to.20properly.20define.20the.20.22Syll.22.20tactic.3F/near/455803243][help from Kyle Miller]] to write this tactic in the way I wanted)/
+Consequently, I could write the following:
+
+#+ATTR_HTML: :width 100%
+#+CAPTION: Illustration of the =Syll= tactic on proving $\ast 2\cdot 16$ and $\ast 2\cdot 17$
+[[./images/syll-example.png]]
 
 It was only a result of my greed to write a tactic that handles a more general
 form of syllogism; I believe in the case of the Principia, I could have got away
 with one that accepts two hypotheses.
+
+I do not see a particular use for this project except for learning the thought
+process to build mathematics from scratch. Although the Principia is thought to
+be “a monumental failure”, as said by Prof. Freeman Dyson, it was an enriching
+experience for me to read as well as to formalize.
+
