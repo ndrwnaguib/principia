@@ -1,0 +1,149 @@
+#+TITLE: Formalizing Bertrand Russell's Principia Mathematica Using Lean4
+
+#+ATTR_HTML: :align right
+#+ATTR_ORG: :align center
+#+ATTR_HTML: :width 300px
+[[./images/principia-mathematica-book-cover.png]]
+
+This project aims to formalize the first volume of Bertrand Russell's Principia
+Mathematica using the Lean theorem prover. The goal is to ensure that the
+formalization aligns clearly with the corresponding theorems in the book to
+avoid confusion.
+
+** Notation
+
+[[https://plato.stanford.edu/entries/principia-mathematica/][Principia Mathematica]]'s notation (Peano-Russell notation) is exceptionally known
+for its sophistication that it [[https://plato.stanford.edu/entries/pm-notation/][has a separate entry on the Stanford Encyclopedia
+of Philosophy (SEP)]]. Also, Prof. Landon Elkind's [[https://muse.jhu.edu/pub/1/article/904086][Squaring the Circles: a
+Genealogy of Principia’s Dot Notation]] explains the notation skillfully.
+
+I do not think there is a *need* to read them, I would like to believe that
+after reading a few examples of how some formulas were formalized and
+contrasting them against Prof. Russell's notation should make it clear.
+
+Throughout the formalization, I tried to rigorously follow Prof. Russell's
+proof, with no or little added statements from my side, which were only
+necessary for the formalization but not the logical argument. Should you notice
+any inaccuracy (even if it does not necessarily falsify the proof), please let
+me know as I would like to proceed with the same spirit of rigor as Prof.
+Russell.
+
+** Editing
+
+I have included a $\LaTeX$ fragment with each theorem that represents Prof. Russell's
+proof. If you use Emacs, I recommend enabling =org-preview-latex= in the Lean
+buffer. If you are using VSCode, perhaps a similar experience can be achieved by
+installing the =Better Comments= extension. This is how it looked like for me:
+
+#+ATTR_HTML: :align center
+#+ATTR_ORG: :align center
+#+ATTR_HTML: :width 100%
+[[./images/editing-experience.png]]
+
+
+I do not see a particular use for this project except for learning the thought
+process to build mathematics from scratch. Although the Principia is thought to
+be “a monumental failure”, as said by Prof. Freeman Dyson, it was an
+enriching experience for me to read as well as to formalize.
+
+* Notes on the formalization
+
+Prof. Russell repeatedly used *1.11 to indicate the inference of a proposition
+from another, for example [(3).(8).*1.11]
+
+The experience I planned for when reading the formalization is to have the
+corresponding text in the Principia included in the same file, only with Prof.
+Russell's proofs replaced with their Lean formalization. For example, here is
+*2.16 along with a unique part in the formalization, that is [[https://leanprover-community.github.io/lean4-metaprogramming-book/main/09_tactics.html][metaprogramming a
+new tactic]] to follow Prof. Russell's notation for =Syll=:
+
+#+ATTR_HTML: :align center
+#+ATTR_ORG: :align center
+#+ATTR_HTML: :width 50%
+[[./images/syll.png]]
+
+#+ATTR_HTML: :align center
+#+ATTR_HTML: :width 50%
+#+ATTR_ORG: :align center
+#+begin_src lean4
+open Lean Meta Elab Tactic Term
+
+structure ImpProof where
+  (ant cons : Expr)
+  (proof : Expr)
+  deriving Inhabited
+
+theorem compose {p q r : Prop} (a : p → q) (b : q → r) : p → r :=
+  b ∘ a
+
+/-- Compose two implication proofs using the `compose` theorem. -/
+def ImpProof.compose (a : ImpProof) (b : ImpProof) : MetaM ImpProof := do
+  unless ← isDefEq a.cons b.ant do
+    throwError "\
+      Consequent{indentD a.cons}\n\
+      is not definitionally equal to antecedent{indentD b.ant}"
+  let proof := mkApp5 (.const ``compose []) a.ant a.cons b.cons a.proof b.proof
+  return { ant := a.ant, cons := b.cons, proof := proof }
+
+/-- Create the proof of `p -> p` using the `id` function. -/
+def ImpProof.rfl (p : Expr) : ImpProof :=
+  { ant := p, cons := p, proof := .app (.const ``id [.zero]) p}
+
+syntax "Syll" (ppSpace "[" term,* "]")? : tactic
+
+elab_rules : tactic
+  | `(tactic| Syll $[[$[$terms?],*]]?) => withMainContext do
+
+    -- Elaborate all the supplied hypotheses, or use the entire local context if not provided.
+    let hyps ←
+      match terms? with
+      | none => getLocalHyps
+      | some terms => terms.mapM fun term => Tactic.elabTerm term none
+
+    liftMetaTactic1 fun goal => do
+      let goalType ← goal.getType
+
+      -- A list of implications extracted from `hyps`.
+      let mut chain : Array ImpProof := #[]
+
+      let getImplication? (e : Expr) : MetaM (Option (Expr × Expr)) := do
+        -- There may be metadata and metavariables, so do some unfolding if necessary:
+        let ty ← instantiateMVars (← whnfR e)
+        -- Check if it is a non-dependent forall:
+        if ty.isArrow then
+          return (ty.bindingDomain!, ty.bindingBody!)
+        else
+          return none
+
+      for hyp in hyps do
+        match ← getImplication? (← inferType hyp) with
+        | some (p, q) => chain := chain.push {ant := p, cons := q, proof := hyp}
+        | none => logInfo m!"Expression {hyp} is not of the form `p → q`"
+
+      let some (p, q) ← getImplication? goalType
+        | throwError "Goal type is not of the form `p → q`"
+
+      if chain.isEmpty then
+        throwError "Local context has no implications"
+
+      unless ← isExprDefEq chain[0]!.ant p do
+        throwError "The first hypothesis does not match the goal's antecedent"
+
+      unless ← isExprDefEq chain[chain.size - 1]!.cons q do
+        throwError "The last hypothesis does not match the goal's consequent"
+
+      let comp ← chain.foldlM (init := ImpProof.rfl p) (fun pf1 pf2 => pf1.compose pf2)
+
+      -- It's good to do one last check that the proof has the correct type before assignment.
+      unless ← isDefEq (← inferType comp.proof) goalType do
+        throwError "Invalid proof of goal"
+      goal.assign comp.proof
+
+      return none
+#+end_src
+
+/(I received [[https://leanprover.zulipchat.com/#narrow/stream/270676-lean4/topic/How.20to.20properly.20define.20the.20.22Syll.22.20tactic.3F/near/455803243][help from Kyle Miller]] to write this tactic in the way I wanted)/
+
+It was only a result of my greed to write a tactic that handles a more general
+form of syllogism; I believe in the case of the Principia, I could have got away
+with one that accepts two hypotheses.

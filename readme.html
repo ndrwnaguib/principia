@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2024-08-02 Fri 17:23 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Formalizing Bertrand Russell's Principia Mathematica Using Lean4</title>
+<meta name="author" content="Andrew Naguib" />
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+
+          <style>
+          /* From: https://endlessparentheses.com/public/css/endless.css */
+          /* See also: https://meta.superuser.com/questions/4788/css-for-the-new-kbd-style */
+          kbd
+          {
+            -moz-border-radius: 6px;
+            -moz-box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
+            -webkit-border-radius: 6px;
+            -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
+            background-color: #f7f7f7;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
+            color: #333;
+            display: inline-block;
+            font-family: 'Droid Sans Mono', monospace;
+            font-size: 80%;
+            font-weight: normal;
+            line-height: inherit;
+            margin: 0 .1em;
+            padding: .08em .4em;
+            text-shadow: 0 1px 0 #fff;
+            word-spacing: -4px;
+        
+            box-shadow: 2px 2px 2px #222; /* MA: An extra I've added. */
+          }
+          </style>
+          <link rel="stylesheet" type="text/css" href="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/css/tooltipster.bundle.min.css"/>
+        
+          <link rel="stylesheet" type="text/css" href="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-punk.min.css" />
+        
+          <script type="text/javascript">
+              if (typeof jQuery == 'undefined') {
+                  document.write(unescape('%3Cscript src="https://code.jquery.com/jquery-1.10.0.min.js"%3E%3C/script%3E'));
+              }
+          </script>
+        
+           <script type="text/javascript"            src="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/js/tooltipster.bundle.min.js"></script>
+        
+            <script>
+                   $(document).ready(function() {
+                       $('.tooltip').tooltipster({
+                           theme: 'tooltipster-punk',
+                           contentAsHTML: true,
+                           animation: 'grow',
+                           delay: [100,500],
+                           // trigger: 'click'
+                           trigger: 'custom',
+                           triggerOpen: {
+                               mouseenter: true
+                           },
+                           triggerClose: {
+                               originClick: true,
+                               scroll: true
+                           }
+           });
+                   });
+               </script>
+        
+          <style>
+             abbr {color: red;}
+        
+             .tooltip { border-bottom: 1px dotted #000;
+                        color:red;
+                        text-decoration: none;}
+          </style>
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Formalizing Bertrand Russell's Principia Mathematica Using Lean4</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgc8ac0ba">0.1. Notation</a></li>
+<li><a href="#org21c7a0c">0.2. Editing</a></li>
+</ul>
+</li>
+<li><a href="#org1a8f6ea">1. Notes on the formalization</a></div>
+</div>
+
+<div id="org87ca9ff" class="figure">
+<p><img src="./images/principia-mathematica-book-cover.png" alt="principia-mathematica-book-cover.png" align="right" width="300px" />
+</p>
+</div>
+
+<p>
+This project aims to formalize the first volume of Bertrand Russell's Principia
+Mathematica using the Lean theorem prover. The goal is to ensure that the
+formalization aligns clearly with the corresponding theorems in the book to
+avoid confusion.
+</p>
+<div id="outline-container-orgc8ac0ba" class="outline-3">
+<h3 id="orgc8ac0ba"><span class="section-number-3">0.1.</span> Notation</h3>
+<div class="outline-text-3" id="text-0-1">
+<p>
+<a href="https://plato.stanford.edu/entries/principia-mathematica/">Principia Mathematica</a>'s notation (Peano-Russell notation) is exceptionally known
+for its sophistication that it <a href="https://plato.stanford.edu/entries/pm-notation/">has a separate entry on the Stanford Encyclopedia
+of Philosophy (SEP)</a>. Also, Prof. Landon Elkind's <a href="https://muse.jhu.edu/pub/1/article/904086">Squaring the Circles: a
+Genealogy of Principia’s Dot Notation</a> explains the notation skillfully.
+</p>
+
+<p>
+I do not think there is a <b>need</b> to read them, I would like to believe that
+after reading a few examples of how some formulas were formalized and
+contrasting them against Prof. Russell's notation should make it clear.
+</p>
+
+<p>
+Throughout the formalization, I tried to rigorously follow Prof. Russell's
+proof, with no or little added statements from my side, which were only
+necessary for the formalization but not the logical argument. Should you notice
+any inaccuracy (even if it does not necessarily falsify the proof), please let
+me know as I would like to proceed with the same spirit of rigor as Prof.
+Russell.
+</p>
+</div>
+</div>
+<div id="outline-container-org21c7a0c" class="outline-3">
+<h3 id="org21c7a0c"><span class="section-number-3">0.2.</span> Editing</h3>
+<div class="outline-text-3" id="text-0-2">
+<p>
+I have included a \(\LaTeX\) fragment with each theorem that represents Prof. Russell's
+proof. If you use Emacs, I recommend enabling <code>org-preview-latex</code> in the Lean
+buffer. If you are using VSCode, perhaps a similar experience can be achieved by
+installing the <code>Better Comments</code> extension. This is how it looked like for me:
+</p>
+
+
+<div id="org535e6d5" class="figure">
+<p><img src="./images/editing-experience.png" alt="editing-experience.png" align="center" width="100%" />
+</p>
+</div>
+
+
+<p>
+I do not see a particular use for this project except for learning the thought
+process to build mathematics from scratch. Although the Principia is thought to
+be “a monumental failure”, as said by Prof. Freeman Dyson, it was an
+enriching experience for me to read as well as to formalize.
+</p>
+</div>
+</div>
+<div id="outline-container-org1a8f6ea" class="outline-2">
+<h2 id="org1a8f6ea"><span class="section-number-2">1.</span> Notes on the formalization</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Prof. Russell repeatedly used *1.11 to indicate the inference of a proposition
+from another, for example [(3).(8).*1.11]
+</p>
+
+<p>
+The experience I planned for when reading the formalization is to have the
+corresponding text in the Principia included in the same file, only with Prof.
+Russell's proofs replaced with their Lean formalization. For example, here is
+*2.16 along with a unique part in the formalization, that is <a href="https://leanprover-community.github.io/lean4-metaprogramming-book/main/09_tactics.html">metaprogramming a
+new tactic</a> to follow Prof. Russell's notation for <code>Syll</code>:
+</p>
+
+
+<div id="org918952b" class="figure">
+<p><img src="./images/syll.png" alt="syll.png" align="center" width="50%" />
+</p>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-lean4"><span style="color: #3f567b; font-weight: bold;">open</span> Lean Meta Elab Tactic Term
+
+<span style="color: #3f567b; font-weight: bold;">structure</span> <span style="color: #714355; font-weight: bold;">ImpProof</span> <span style="color: #3f567b; font-weight: bold;">where</span>
+  <span style="color: #525252;">(</span>ant cons : Expr<span style="color: #525252;">)</span>
+  <span style="color: #525252;">(</span>proof : Expr<span style="color: #525252;">)</span>
+  <span style="color: #3f567b; font-weight: bold;">deriving</span> Inhabited
+
+<span style="color: #3f567b; font-weight: bold;">theorem</span> <span style="color: #714355; font-weight: bold;">compose</span> <span style="color: #525252;">{</span>p q r : <span style="color: #634575;">Prop</span><span style="color: #525252;">}</span> <span style="color: #525252;">(</span>a : p <span style="color: #64502f;">&#8594;</span> q<span style="color: #525252;">)</span> <span style="color: #525252;">(</span>b : q <span style="color: #64502f;">&#8594;</span> r<span style="color: #525252;">)</span> : p <span style="color: #64502f;">&#8594;</span> r <span style="color: #64502f;">:=</span>
+  b <span style="color: #64502f;">&#8728;</span> a
+
+<span style="color: #949494;">/-</span><span style="color: #949494;">- Compose two implication proofs using the `compose` theorem.</span><span style="color: #949494;"> -/</span>
+<span style="color: #3f567b; font-weight: bold;">def</span> <span style="color: #714355; font-weight: bold;">ImpProof.compose</span> <span style="color: #525252;">(</span>a : ImpProof<span style="color: #525252;">)</span> <span style="color: #525252;">(</span>b : ImpProof<span style="color: #525252;">)</span> : MetaM ImpProof <span style="color: #64502f;">:=</span> <span style="color: #3f567b; font-weight: bold;">do</span>
+  <span style="color: #3f567b; font-weight: bold;">unless</span> &#8592; isDefEq a.cons b.ant <span style="color: #3f567b; font-weight: bold;">do</span>
+    throwError <span style="color: #305f5e;">"\</span>
+<span style="color: #305f5e;">      Consequent{indentD a.cons}\n\</span>
+<span style="color: #305f5e;">      is not definitionally equal to antecedent{indentD b.ant}"</span>
+  <span style="color: #3f567b; font-weight: bold;">let</span> proof <span style="color: #64502f;">:=</span> mkApp5 <span style="color: #525252;">(</span>.const ``compose <span style="color: #634575;">[]</span><span style="color: #525252;">)</span> a.ant a.cons b.cons a.proof b.proof
+  <span style="color: #3f567b; font-weight: bold;">return</span> <span style="color: #525252;">{</span> ant <span style="color: #64502f;">:=</span> a.ant, cons <span style="color: #64502f;">:=</span> b.cons, proof <span style="color: #64502f;">:=</span> proof <span style="color: #525252;">}</span>
+
+<span style="color: #949494;">/-</span><span style="color: #949494;">- Create the proof of `p -&gt; p` using the `id` function.</span><span style="color: #949494;"> -/</span>
+<span style="color: #3f567b; font-weight: bold;">def</span> <span style="color: #714355; font-weight: bold;">ImpProof.rfl</span> <span style="color: #525252;">(</span>p : Expr<span style="color: #525252;">)</span> : ImpProof <span style="color: #64502f;">:=</span>
+  <span style="color: #525252;">{</span> ant <span style="color: #64502f;">:=</span> p, cons <span style="color: #64502f;">:=</span> p, proof <span style="color: #64502f;">:=</span> .app <span style="color: #634575;">(</span>.const ``id <span style="color: #3f5b32;">[</span>.zero<span style="color: #3f5b32;">]</span><span style="color: #634575;">)</span> p<span style="color: #525252;">}</span>
+
+<span style="color: #3f567b; font-weight: bold;">syntax</span> <span style="color: #305f5e;">"Syll"</span> <span style="color: #525252;">(</span>ppSpace <span style="color: #305f5e;">"["</span> term,<span style="color: #64502f;">*</span> <span style="color: #305f5e;">"]"</span><span style="color: #525252;">)</span>? : tactic
+
+elab_rules : tactic
+  | `<span style="color: #525252;">(</span>tactic| Syll <span style="color: #64502f;">$</span><span style="color: #634575;">[</span><span style="color: #3f5b32;">[</span><span style="color: #64502f;">$</span><span style="color: #64502f;">[</span><span style="color: #64502f;">$</span>terms?<span style="color: #64502f;">]</span>,<span style="color: #64502f;">*</span><span style="color: #3f5b32;">]</span><span style="color: #634575;">]</span>?<span style="color: #525252;">)</span> <span style="color: #64502f;">=&gt;</span> withMainContext <span style="color: #3f567b; font-weight: bold;">do</span>
+
+    <span style="color: #949494;">-- </span><span style="color: #949494;">Elaborate all the supplied hypotheses, or use the entire local context if not provided.</span>
+    <span style="color: #3f567b; font-weight: bold;">let</span> hyps &#8592;
+      <span style="color: #3f567b; font-weight: bold;">match</span> terms? <span style="color: #3f567b; font-weight: bold;">with</span>
+      | none <span style="color: #64502f;">=&gt;</span> getLocalHyps
+      | some terms <span style="color: #64502f;">=&gt;</span> terms.mapM <span style="color: #3f567b; font-weight: bold;">fun</span> term <span style="color: #64502f;">=&gt;</span> Tactic.elabTerm term none
+
+    liftMetaTactic1 <span style="color: #3f567b; font-weight: bold;">fun</span> goal <span style="color: #64502f;">=&gt;</span> <span style="color: #3f567b; font-weight: bold;">do</span>
+      <span style="color: #3f567b; font-weight: bold;">let</span> goalType &#8592; goal.getType
+
+      <span style="color: #949494;">-- </span><span style="color: #949494;">A list of implications extracted from `hyps`.</span>
+      <span style="color: #3f567b; font-weight: bold;">let</span> <span style="color: #3f567b; font-weight: bold;">mut</span> chain : Array ImpProof <span style="color: #64502f;">:=</span> <span style="color: #64502f;">#</span><span style="color: #525252;">[]</span>
+
+      <span style="color: #3f567b; font-weight: bold;">let</span> getImplication? <span style="color: #525252;">(</span>e : Expr<span style="color: #525252;">)</span> : MetaM <span style="color: #525252;">(</span>Option <span style="color: #634575;">(</span>Expr <span style="color: #64502f;">&#215;</span> Expr<span style="color: #634575;">)</span><span style="color: #525252;">)</span> <span style="color: #64502f;">:=</span> <span style="color: #3f567b; font-weight: bold;">do</span>
+        <span style="color: #949494;">-- </span><span style="color: #949494;">There may be metadata and metavariables, so do some unfolding if necessary:</span>
+        <span style="color: #3f567b; font-weight: bold;">let</span> ty &#8592; instantiateMVars <span style="color: #525252;">(</span>&#8592; whnfR e<span style="color: #525252;">)</span>
+        <span style="color: #949494;">-- </span><span style="color: #949494;">Check if it is a non-dependent forall:</span>
+        <span style="color: #3f567b; font-weight: bold;">if</span> ty.isArrow <span style="color: #3f567b; font-weight: bold;">then</span>
+          <span style="color: #3f567b; font-weight: bold;">return</span> <span style="color: #525252;">(</span>ty.bindingDomain<span style="color: #64502f;">!</span>, ty.bindingBody<span style="color: #64502f;">!</span><span style="color: #525252;">)</span>
+        <span style="color: #3f567b; font-weight: bold;">else</span>
+          <span style="color: #3f567b; font-weight: bold;">return</span> none
+
+      <span style="color: #3f567b; font-weight: bold;">for</span> hyp <span style="color: #3f567b; font-weight: bold;">in</span> hyps <span style="color: #3f567b; font-weight: bold;">do</span>
+        <span style="color: #3f567b; font-weight: bold;">match</span> &#8592; getImplication? <span style="color: #525252;">(</span>&#8592; inferType hyp<span style="color: #525252;">)</span> <span style="color: #3f567b; font-weight: bold;">with</span>
+        | some <span style="color: #525252;">(</span>p, q<span style="color: #525252;">)</span> <span style="color: #64502f;">=&gt;</span> chain <span style="color: #64502f;">:=</span> chain.push <span style="color: #525252;">{</span>ant <span style="color: #64502f;">:=</span> p, cons <span style="color: #64502f;">:=</span> q, proof <span style="color: #64502f;">:=</span> hyp<span style="color: #525252;">}</span>
+        | none <span style="color: #64502f;">=&gt;</span> logInfo m<span style="color: #64502f;">!</span><span style="color: #305f5e;">"Expression {hyp} is not of the form `p &#8594; q`"</span>
+
+      <span style="color: #3f567b; font-weight: bold;">let</span> some <span style="color: #525252;">(</span>p, q<span style="color: #525252;">)</span> &#8592; getImplication? goalType
+        | throwError <span style="color: #305f5e;">"Goal type is not of the form `p &#8594; q`"</span>
+
+      <span style="color: #3f567b; font-weight: bold;">if</span> chain.isEmpty <span style="color: #3f567b; font-weight: bold;">then</span>
+        throwError <span style="color: #305f5e;">"Local context has no implications"</span>
+
+      <span style="color: #3f567b; font-weight: bold;">unless</span> &#8592; isExprDefEq chain<span style="color: #525252;">[</span><span style="color: #64502f;">0</span><span style="color: #525252;">]</span><span style="color: #64502f;">!</span>.ant p <span style="color: #3f567b; font-weight: bold;">do</span>
+        throwError <span style="color: #305f5e;">"The first hypothesis does not match the goal's antecedent"</span>
+
+      <span style="color: #3f567b; font-weight: bold;">unless</span> &#8592; isExprDefEq chain<span style="color: #525252;">[</span>chain.size <span style="color: #64502f;">-</span> <span style="color: #64502f;">1</span><span style="color: #525252;">]</span><span style="color: #64502f;">!</span>.cons q <span style="color: #3f567b; font-weight: bold;">do</span>
+        throwError <span style="color: #305f5e;">"The last hypothesis does not match the goal's consequent"</span>
+
+      <span style="color: #3f567b; font-weight: bold;">let</span> comp &#8592; chain.foldlM <span style="color: #525252;">(</span>init <span style="color: #64502f;">:=</span> ImpProof.rfl p<span style="color: #525252;">)</span> <span style="color: #525252;">(</span><span style="color: #3f567b; font-weight: bold;">fun</span> pf1 pf2 <span style="color: #64502f;">=&gt;</span> pf1.compose pf2<span style="color: #525252;">)</span>
+
+      <span style="color: #949494;">-- </span><span style="color: #949494;">It's good to do one last check that the proof has the correct type before assignment.</span>
+      <span style="color: #3f567b; font-weight: bold;">unless</span> &#8592; isDefEq <span style="color: #525252;">(</span>&#8592; inferType comp.proof<span style="color: #525252;">)</span> goalType <span style="color: #3f567b; font-weight: bold;">do</span>
+        throwError <span style="color: #305f5e;">"Invalid proof of goal"</span>
+      goal.assign comp.proof
+
+      <span style="color: #3f567b; font-weight: bold;">return</span> none
+</pre>
+</div>
+
+<p>
+<i>(I received <a href="https://leanprover.zulipchat.com/#narrow/stream/270676-lean4/topic/How.20to.20properly.20define.20the.20.22Syll.22.20tactic.3F/near/455803243">help from Kyle Miller</a> to write this tactic in the way I wanted)</i>
+</p>
+
+<p>
+It was only a result of my greed to write a tactic that handles a more general
+form of syllogism; I believe in case of the Principia, I could have got away
+with one that accepts two hypotheses.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Andrew Naguib</p>
+<p class="date">Created: 2024-08-02 Fri 17:23</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
