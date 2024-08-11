@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2024-08-10 Sat 18:14 -->
+<!-- 2024-08-10 Sat 22:38 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Formalizing Bertrand Russell's Principia Mathematica Using Lean4</title>
@@ -461,6 +461,73 @@
                         color:red;
                         text-decoration: none;}
           </style>
+          
+          <style>
+          /* From: https://endlessparentheses.com/public/css/endless.css */
+          /* See also: https://meta.superuser.com/questions/4788/css-for-the-new-kbd-style */
+          kbd
+          {
+            -moz-border-radius: 6px;
+            -moz-box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
+            -webkit-border-radius: 6px;
+            -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
+            background-color: #f7f7f7;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
+            color: #333;
+            display: inline-block;
+            font-family: 'Droid Sans Mono', monospace;
+            font-size: 80%;
+            font-weight: normal;
+            line-height: inherit;
+            margin: 0 .1em;
+            padding: .08em .4em;
+            text-shadow: 0 1px 0 #fff;
+            word-spacing: -4px;
+        
+            box-shadow: 2px 2px 2px #222; /* MA: An extra I've added. */
+          }
+          </style>
+          <link rel="stylesheet" type="text/css" href="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/css/tooltipster.bundle.min.css"/>
+        
+          <link rel="stylesheet" type="text/css" href="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-punk.min.css" />
+        
+          <script type="text/javascript">
+              if (typeof jQuery == 'undefined') {
+                  document.write(unescape('%3Cscript src="https://code.jquery.com/jquery-1.10.0.min.js"%3E%3C/script%3E'));
+              }
+          </script>
+        
+           <script type="text/javascript"            src="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/js/tooltipster.bundle.min.js"></script>
+        
+            <script>
+                   $(document).ready(function() {
+                       $('.tooltip').tooltipster({
+                           theme: 'tooltipster-punk',
+                           contentAsHTML: true,
+                           animation: 'grow',
+                           delay: [100,500],
+                           // trigger: 'click'
+                           trigger: 'custom',
+                           triggerOpen: {
+                               mouseenter: true
+                           },
+                           triggerClose: {
+                               originClick: true,
+                               scroll: true
+                           }
+           });
+                   });
+               </script>
+        
+          <style>
+             abbr {color: red;}
+        
+             .tooltip { border-bottom: 1px dotted #000;
+                        color:red;
+                        text-decoration: none;}
+          </style>
 <script>
   window.MathJax = {
     tex: {
@@ -496,25 +563,28 @@
 </head>
 <body>
 <div id="content" class="content">
-<h1 class="title">Formalizing Bertrand Russell's Principia Mathematica Using Lean4</h1>
+<h1 class="title">Formalizing Bertrand Russell's Principia Mathematica Using Lean4
+<br />
+<span class="subtitle">(the HTML export of this file is rendered better than the GitHub's rendering of org files; check <a href="https://ndrwnaguib.com/principia">https://ndrwnaguib.com/principia</a>)</span>
+</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgf7ab93b">1. Notation</a></li>
-<li><a href="#org82de882">2. Editing</a></li>
-<li><a href="#org025712c">3. Notes on the formalization</a>
+<li><a href="#orgdb7cf5e">1. Notation</a></li>
+<li><a href="#org1b838f2">2. Editing</a></li>
+<li><a href="#org6a92f9f">3. Notes on the formalization</a>
 <ul>
-<li><a href="#orgc1ece87">3.1. \(\ast 1 \cdot 11\)</a></li>
-<li><a href="#orgb2f764a">3.2. Metaprogramming <code>Syll</code></a></li>
+<li><a href="#orgeb88e34">3.1. \(\ast 1 \cdot 11\)</a></li>
+<li><a href="#orge13071d">3.2. Metaprogramming <code>Syll</code></a></li>
 </ul>
 </li>
-<li><a href="#orgce92b48">4. Remarks</a></li>
+<li><a href="#orgf7aa4a4">4. Remarks</a></li>
 </ul>
 </div>
 </div>
 
-<div id="orgd3b960e" class="figure">
+<div id="org15e409d" class="figure">
 <p><img src="./images/principia-mathematica-book-cover.png" alt="principia-mathematica-book-cover.png" align="right" width="300px" />
 </p>
 </div>
@@ -523,10 +593,10 @@
 This project aims to formalize the first volume of Prof. Bertrand Russell's
 Principia Mathematica using the Lean theorem prover. The goal is to ensure that
 the formalization aligns clearly with the corresponding theorems in the book to
-avoid confusion (See <a href="#orgb2f764a">Metaprogramming <code>Syll</code></a>)
+avoid confusion (See <a href="#orge13071d">Metaprogramming <code>Syll</code></a>)
 </p>
-<div id="outline-container-orgf7ab93b" class="outline-2">
-<h2 id="orgf7ab93b"><span class="section-number-2">1.</span> Notation</h2>
+<div id="outline-container-orgdb7cf5e" class="outline-2">
+<h2 id="orgdb7cf5e"><span class="section-number-2">1.</span> Notation</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 <a href="https://plato.stanford.edu/entries/principia-mathematica/">Principia Mathematica</a>'s notation (Peano-Russell notation) is exceptionally known
@@ -551,8 +621,8 @@ Russell.
 </p>
 </div>
 </div>
-<div id="outline-container-org82de882" class="outline-2">
-<h2 id="org82de882"><span class="section-number-2">2.</span> Editing</h2>
+<div id="outline-container-org1b838f2" class="outline-2">
+<h2 id="org1b838f2"><span class="section-number-2">2.</span> Editing</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 I have included a \(\LaTeX\) fragment with each theorem that represents Prof. Russell's
@@ -562,18 +632,18 @@ installing the <code>Better Comments</code> extension. This is how it looked lik
 </p>
 
 
-<div id="orgbaf05d1" class="figure">
+<div id="org98def64" class="figure">
 <p><img src="./images/editing-experience.png" alt="editing-experience.png" align="center" width="100%" />
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-org025712c" class="outline-2">
-<h2 id="org025712c"><span class="section-number-2">3.</span> Notes on the formalization</h2>
+<div id="outline-container-org6a92f9f" class="outline-2">
+<h2 id="org6a92f9f"><span class="section-number-2">3.</span> Notes on the formalization</h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-orgc1ece87" class="outline-3">
-<h3 id="orgc1ece87"><span class="section-number-3">3.1.</span> \(\ast 1 \cdot 11\)</h3>
+<div id="outline-container-orgeb88e34" class="outline-3">
+<h3 id="orgeb88e34"><span class="section-number-3">3.1.</span> \(\ast 1 \cdot 11\)</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 Prof. Russell repeatedly used *1.11 to indicate the inference of a proposition
@@ -583,8 +653,8 @@ atoms, e.g., <code>&lt;|</code>, <code>simp</code>, etc.
 </p>
 </div>
 </div>
-<div id="outline-container-orgb2f764a" class="outline-3">
-<h3 id="orgb2f764a"><span class="section-number-3">3.2.</span> Metaprogramming <code>Syll</code></h3>
+<div id="outline-container-orge13071d" class="outline-3">
+<h3 id="orge13071d"><span class="section-number-3">3.2.</span> Metaprogramming <code>Syll</code></h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 The experience I planned for when reading the formalization is to have the
@@ -595,7 +665,7 @@ new tactic</a> to follow Prof. Russell's notation for <code>Syll</code>:
 </p>
 
 
-<div id="orgf9798fe" class="figure">
+<div id="org188a387" class="figure">
 <p><img src="./images/syll.png" alt="syll.png" align="center" width="50%" />
 </p>
 <p><span class="figure-number">Figure 1: </span>The <code>Syll</code> abbreviation defined in *B</p>
@@ -684,7 +754,7 @@ Consequently, I could write the following:
 </p>
 
 
-<div id="org4e1a6c1" class="figure">
+<div id="orgae646a3" class="figure">
 <p><img src="./images/syll-example.png" alt="syll-example.png" width="100%" />
 </p>
 <p><span class="figure-number">Figure 2: </span>Illustration of the <code>Syll</code> tactic on proving \(\ast 2\cdot 16\) and \(\ast 2\cdot 17\)</p>
@@ -698,8 +768,8 @@ with one that accepts two hypotheses.
 </div>
 </div>
 </div>
-<div id="outline-container-orgce92b48" class="outline-2">
-<h2 id="orgce92b48"><span class="section-number-2">4.</span> Remarks</h2>
+<div id="outline-container-orgf7aa4a4" class="outline-2">
+<h2 id="orgf7aa4a4"><span class="section-number-2">4.</span> Remarks</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 I do not see a particular use for this project except for learning the
@@ -711,16 +781,29 @@ ones I personally proved.
 </p>
 
 
-<div id="orge2775b3" class="figure">
-<p><img src="./images/building-from-constituents.png" alt="building-from-constituents.png" width="100%" />
+
+<div id="org3de415c" class="figure">
+<p><img src="./images/building-from-constituents.png" alt="building-from-constituents.png" align="center" width="100%" />
 </p>
 </div>
+
+
+
+<div id="org9fd6b8a" class="figure">
+<p><img src="./images/logic-semantics-and-metamathematics-book-cover.png" alt="logic-semantics-and-metamathematics-book-cover.png" width="30%" align="right" />
+</p>
+</div>
+
+<p align="left">
+Perhaps a following project would be formalizing Alfred Tarski's “Logic,
+Semantics, and Metamathematics.”
+</p>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Andrew Naguib</p>
-<p class="date">Created: 2024-08-10 Sat 18:14</p>
+<p class="date">Created: 2024-08-10 Sat 22:38</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

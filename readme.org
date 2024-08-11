@@ -1,4 +1,5 @@
 #+TITLE: Formalizing Bertrand Russell's Principia Mathematica Using Lean4
+#+SUBTITLE: (the HTML export of this file is rendered better than the GitHub's rendering of org files; check https://ndrwnaguib.com/principia)
 #+EXPORT_FILE_NAME: ./index.html
 #+OPTIONS: H:5 TeX:t
 #+HTML_MATHJAX: align: left indent: 5em tagside: left
@@ -170,6 +171,18 @@ enriching experience for me to read as well as to formalize-especially after
 observing how the latter, more complicated results, are obtained using simpler
 ones I personally proved.
 
+
+#+ATTR_HTML: :align center
 #+ATTR_HTML: :width 100%
 [[./images/building-from-constituents.png]]
+
+
+#+ATTR_HTML: :width 30%
+#+ATTR_HTML: :align right
+[[./images/logic-semantics-and-metamathematics-book-cover.png]]
+
+#+ATTR_HTML: :align left
+Perhaps a following project would be formalizing Alfred Tarski's “Logic,
+Semantics, and Metamathematics.”
+
 
