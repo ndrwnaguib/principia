@@ -197,22 +197,18 @@ theorem ast_2_08 (p: Prop) : p → p := by
   $\left[ \ast\text{2.05}\ \frac{p \vee p,\ p}{q,\ \ r} \right] \vdash ::  p \vee p . \supset . p : \supset :. p . \supset . p \vee p : \supset . p \supset p$
   -/
 
-  have Syll := ast_2_05
-  specialize Syll p (p ∨ p) p
+  have Syll := ast_2_05 p (p ∨ p) p
   /-
   $\left[ \text{Taut} \right] \vdash: p \vee p . \supset . p$
   -/
-  have Taut := ast_1_2
-  specialize Taut p
+  have Taut := ast_1_2 p
   /- $[\ast 2.07] \vdash : p . \supset . p \vee p$ -/
-  have ast_2_07 := ast_2_07
-  specialize ast_2_07 p
+  have ast_2_07 := ast_2_07 p
   exact (Syll <| Taut) <| ast_2_07
 
 theorem ast_2_1 (p : Prop) : (¬p) ∨ p := by
-  have ast_2_08 := ast_2_08
-  specialize ast_2_08 p
-  rw [ast_1_01] at ast_2_08
+  have ast_2_08 := ast_2_08 p
+  rw [ast_1_01] at *
   exact ast_2_08
 
 -- “This is the law of excluded middle.”
@@ -223,8 +219,7 @@ theorem ast_2_11 (p : Prop) : p ∨ (¬p) := by
   -/
   have Perm := ast_1_4
   specialize Perm (¬p) p
-  have ast_2_1 := ast_2_1
-  specialize ast_2_1 p
+  have ast_2_1 := ast_2_1 p
   exact Perm <| ast_2_1
 
 theorem ast_2_12 (p :  Prop) : p → ¬(¬p) := by
@@ -233,7 +228,8 @@ theorem ast_2_12 (p :  Prop) : p → ¬(¬p) := by
   rw [<- ast_1_01] at ast_2_11
   exact ast_2_11
 
--- “This proposition is a lemma for *2.14, which, with *2.12 constitutes the principle of double negation”
+-- “This proposition is a lemma for *2.14, which, with *2.12 constitutes the
+-- principle of double negation”
 theorem ast_2_13 (p: Prop) : p ∨ (¬(¬(¬p))) := by
   have Sum := ast_1_6
   specialize Sum p (¬p) (¬(¬(¬p)))
@@ -574,4 +570,3 @@ theorem ast_2_52 (p q: Prop) : ¬(p → q) → (¬p → ¬q) := by
   have ast_2_49 := ast_2_49 (¬p) q
   repeat rw [ast_1_01] at *
   exact ast_2_49
-
