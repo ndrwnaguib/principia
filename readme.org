@@ -35,6 +35,10 @@ any inaccuracy (even if it does not necessarily falsify the proof), please let
 me know as I would like to proceed with the same spirit of rigor as Prof.
 Russell.
 
+Before starting this project, I had already found [[https://www.principiarewrite.com/][Prof. Elkind's formalization
+of the Principia using Coq]], which is much mature work than this one. However, I
+still thought it would be fun to do it using Lean4 (See [[*Remarks][Remarks]]).
+
 * Editing
 
 I have included a $\LaTeX$ fragment with each theorem that represents Prof. Russell's
@@ -169,7 +173,7 @@ thought-process of building mathematics from scratch. Although the Principia is
 thought to be “a monumental failure”, as said by Prof. Freeman Dyson, it was an
 enriching experience for me to read as well as to formalize-especially after
 observing how the latter, more complicated results, are obtained using simpler
-ones I personally proved.
+ones I personally formalized.
 
 
 #+ATTR_HTML: :align center
