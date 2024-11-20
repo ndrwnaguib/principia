@@ -12,7 +12,7 @@
 #+ATTR_HTML: :width 300px
 [[./images/principia-mathematica-book-cover.png]]
 
-This project aims to formalize the first volume of Prof. Bertrand Russell's
+This [[https://github.com/ndrwnaguib/principia][project]] aims to formalize the first volume of Prof. Bertrand Russell's
 Principia Mathematica using the Lean theorem prover. The goal is to ensure that
 the formalization aligns clearly with the corresponding theorems in the book to
 avoid confusion (See [[*Metaprogramming =Syll=][Metaprogramming =Syll=]])
