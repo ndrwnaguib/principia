@@ -570,3 +570,7 @@ theorem ast_2_52 (p q: Prop) : ¬(p → q) → (¬p → ¬q) := by
   have ast_2_49 := ast_2_49 (¬p) q
   repeat rw [ast_1_01] at *
   exact ast_2_49
+
+theorem ast_2_521 (p q: Prop) : ¬(p → q) → (q → p) := by
+  intro pq
+  exact ast_2_17 q p (ast_2_52 p q pq)
