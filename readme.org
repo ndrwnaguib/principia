@@ -1,4 +1,4 @@
-#+TITLE: Formalizing Bertrand Russell's Principia Mathematica Using Lean4
+#+TITLE: Formalizing Whitehead & Russell's Principia Mathematica Using Lean4
 #+SUBTITLE: (the HTML export of this file is rendered better than the GitHub's rendering of org files; check https://ndrwnaguib.com/principia)
 #+EXPORT_FILE_NAME: ./index.html
 #+OPTIONS: H:5 TeX:t
@@ -12,7 +12,7 @@
 #+ATTR_HTML: :width 300px
 [[./images/principia-mathematica-book-cover.png]]
 
-This [[https://github.com/ndrwnaguib/principia][project]] aims to formalize the first volume of Prof. Bertrand Russell's
+This [[https://github.com/ndrwnaguib/principia][project]] aims to formalize the first volume of Whitehead & Russell's
 Principia Mathematica using the Lean theorem prover. The goal is to ensure that
 the formalization aligns clearly with the corresponding theorems in the book to
 avoid confusion (See [[*Metaprogramming =Syll=][Metaprogramming =Syll=]])
@@ -26,25 +26,23 @@ Genealogy of Principia’s Dot Notation]] explains the notation skillfully.
 
 I do not think there is a *need* to read them, I would like to believe that
 after reading a few examples of how some formulas were formalized and
-contrasting them against Prof. Russell's notation should make it clear.
+contrasting them against the Principia's notation should make it clear.
 
-Throughout the formalization, I tried to rigorously follow Prof. Russell's
-proof, with no or little added statements from my side, which were only
-necessary for the formalization but not the logical argument. Should you notice
-any inaccuracy (even if it does not necessarily falsify the proof), please let
-me know as I would like to proceed with the same spirit of rigor as Prof.
-Russell.
+Throughout the formalization, I tried to rigorously follow the proofs,
+with no or little added statements from my side, which were only necessary for
+the formalization but not the logical argument. Should you notice any inaccuracy
+(even if it does not necessarily falsify the proof).
 
-Before starting this project, I had already found [[https://www.principiarewrite.com/][Prof. Elkind's formalization
-of the Principia using Coq]], which is much mature work than this one. However, I
-still thought it would be fun to do it using Lean4 (See [[*Remarks][Remarks]]).
+Before starting this project, I had already found [[https://www.principiarewrite.com/][formalization of the the
+Principia using Coq]], which is much mature work than this one. However, I still
+thought it would be fun to do it using Lean4 (See [[*Remarks][Remarks]]).
 
 * Editing
 
-I have included a $\LaTeX$ fragment with each theorem that represents Prof. Russell's
-proof. If you use Emacs, I recommend enabling =org-preview-latex= in the Lean
-buffer. If you are using VSCode, perhaps a similar experience can be achieved by
-installing the =Better Comments= extension. This is how it looked like for me:
+I have included a $\LaTeX$ fragment with each theorem. If you use Emacs, I
+recommend enabling =org-preview-latex= in the Lean buffer. If you are using
+VSCode, perhaps a similar experience can be achieved by installing the =Better
+Comments= extension. This is how it looked like for me:
 
 #+ATTR_HTML: :align center
 #+ATTR_ORG: :align center
@@ -56,7 +54,7 @@ installing the =Better Comments= extension. This is how it looked like for me:
 
 ** $\ast 1 \cdot 11$
 
-Prof. Russell repeatedly used *1.11 to indicate the inference of a proposition
+In the Principia, *1.11 is repeatedly used to indicate the inference of a proposition
 from another, for example $[(3).(8).\ast 1\cdot 11]$ is the proposition deduced by chaining
 proposition (8) and (3). In Lean, this could be analogous to several tactics or
 atoms, e.g., =<|=, =simp=, etc.
@@ -64,10 +62,10 @@ atoms, e.g., =<|=, =simp=, etc.
 ** Metaprogramming =Syll=
 
 The experience I planned for when reading the formalization is to have the
-corresponding text in the Principia included in the same file, only with Prof.
-Russell's proofs replaced with their Lean formalization. For example, here is
+corresponding text in the Principia included in the same file, only with the
+original proofs replaced with their Lean formalization. For example, here is
 *2.16 along with a unique part in the formalization, that is [[https://leanprover-community.github.io/lean4-metaprogramming-book/main/09_tactics.html][metaprogramming a
-new tactic]] to follow Prof. Russell's notation for =Syll=:
+new tactic]] to follow the notation for =Syll=:
 
 #+ATTR_HTML: :align center
 #+ATTR_ORG: :align center
@@ -170,7 +168,7 @@ with one that accepts two hypotheses.
 
 I do not see a particular use for this project except for learning the
 thought-process of building mathematics from scratch. Although the Principia is
-thought to be “a monumental failure”, as said by Prof. Freeman Dyson, it was an
+thought to be “a monumental failure”, as said by Freeman Dyson, it was an
 enriching experience for me to read as well as to formalize-especially after
 observing how the latter, more complicated results, are obtained using simpler
 ones I personally formalized.

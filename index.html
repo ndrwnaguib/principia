@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2024-11-20 Wed 17:18 -->
+<!-- 2025-08-14 Thu 03:30 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Formalizing Bertrand Russell's Principia Mathematica Using Lean4</title>
+<title>Formalizing Whitehead &amp; Russell's Principia Mathematica Using Lean4</title>
 <meta name="author" content="Andrew Naguib" />
 <meta name="generator" content="Org Mode" />
 <style type="text/css">
@@ -193,944 +193,6 @@
     { background-color: #ffff00; color: #000000; font-weight: bold; }
   .org-svg { }
 </style>
-
-          <style>
-          /* From: https://endlessparentheses.com/public/css/endless.css */
-          /* See also: https://meta.superuser.com/questions/4788/css-for-the-new-kbd-style */
-          kbd
-          {
-            -moz-border-radius: 6px;
-            -moz-box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-            -webkit-border-radius: 6px;
-            -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-            background-color: #f7f7f7;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-            color: #333;
-            display: inline-block;
-            font-family: 'Droid Sans Mono', monospace;
-            font-size: 80%;
-            font-weight: normal;
-            line-height: inherit;
-            margin: 0 .1em;
-            padding: .08em .4em;
-            text-shadow: 0 1px 0 #fff;
-            word-spacing: -4px;
-        
-            box-shadow: 2px 2px 2px #222; /* MA: An extra I've added. */
-          }
-          </style>
-          <link rel="stylesheet" type="text/css" href="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/css/tooltipster.bundle.min.css"/>
-        
-          <link rel="stylesheet" type="text/css" href="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-punk.min.css" />
-        
-          <script type="text/javascript">
-              if (typeof jQuery == 'undefined') {
-                  document.write(unescape('%3Cscript src="https://code.jquery.com/jquery-1.10.0.min.js"%3E%3C/script%3E'));
-              }
-          </script>
-        
-           <script type="text/javascript"            src="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/js/tooltipster.bundle.min.js"></script>
-        
-            <script>
-                   $(document).ready(function() {
-                       $('.tooltip').tooltipster({
-                           theme: 'tooltipster-punk',
-                           contentAsHTML: true,
-                           animation: 'grow',
-                           delay: [100,500],
-                           // trigger: 'click'
-                           trigger: 'custom',
-                           triggerOpen: {
-                               mouseenter: true
-                           },
-                           triggerClose: {
-                               originClick: true,
-                               scroll: true
-                           }
-           });
-                   });
-               </script>
-        
-          <style>
-             abbr {color: red;}
-        
-             .tooltip { border-bottom: 1px dotted #000;
-                        color:red;
-                        text-decoration: none;}
-          </style>
-          
-          <style>
-          /* From: https://endlessparentheses.com/public/css/endless.css */
-          /* See also: https://meta.superuser.com/questions/4788/css-for-the-new-kbd-style */
-          kbd
-          {
-            -moz-border-radius: 6px;
-            -moz-box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-            -webkit-border-radius: 6px;
-            -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-            background-color: #f7f7f7;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-            color: #333;
-            display: inline-block;
-            font-family: 'Droid Sans Mono', monospace;
-            font-size: 80%;
-            font-weight: normal;
-            line-height: inherit;
-            margin: 0 .1em;
-            padding: .08em .4em;
-            text-shadow: 0 1px 0 #fff;
-            word-spacing: -4px;
-        
-            box-shadow: 2px 2px 2px #222; /* MA: An extra I've added. */
-          }
-          </style>
-          <link rel="stylesheet" type="text/css" href="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/css/tooltipster.bundle.min.css"/>
-        
-          <link rel="stylesheet" type="text/css" href="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-punk.min.css" />
-        
-          <script type="text/javascript">
-              if (typeof jQuery == 'undefined') {
-                  document.write(unescape('%3Cscript src="https://code.jquery.com/jquery-1.10.0.min.js"%3E%3C/script%3E'));
-              }
-          </script>
-        
-           <script type="text/javascript"            src="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/js/tooltipster.bundle.min.js"></script>
-        
-            <script>
-                   $(document).ready(function() {
-                       $('.tooltip').tooltipster({
-                           theme: 'tooltipster-punk',
-                           contentAsHTML: true,
-                           animation: 'grow',
-                           delay: [100,500],
-                           // trigger: 'click'
-                           trigger: 'custom',
-                           triggerOpen: {
-                               mouseenter: true
-                           },
-                           triggerClose: {
-                               originClick: true,
-                               scroll: true
-                           }
-           });
-                   });
-               </script>
-        
-          <style>
-             abbr {color: red;}
-        
-             .tooltip { border-bottom: 1px dotted #000;
-                        color:red;
-                        text-decoration: none;}
-          </style>
-          
-          <style>
-          /* From: https://endlessparentheses.com/public/css/endless.css */
-          /* See also: https://meta.superuser.com/questions/4788/css-for-the-new-kbd-style */
-          kbd
-          {
-            -moz-border-radius: 6px;
-            -moz-box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-            -webkit-border-radius: 6px;
-            -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-            background-color: #f7f7f7;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-            color: #333;
-            display: inline-block;
-            font-family: 'Droid Sans Mono', monospace;
-            font-size: 80%;
-            font-weight: normal;
-            line-height: inherit;
-            margin: 0 .1em;
-            padding: .08em .4em;
-            text-shadow: 0 1px 0 #fff;
-            word-spacing: -4px;
-        
-            box-shadow: 2px 2px 2px #222; /* MA: An extra I've added. */
-          }
-          </style>
-          <link rel="stylesheet" type="text/css" href="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/css/tooltipster.bundle.min.css"/>
-        
-          <link rel="stylesheet" type="text/css" href="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-punk.min.css" />
-        
-          <script type="text/javascript">
-              if (typeof jQuery == 'undefined') {
-                  document.write(unescape('%3Cscript src="https://code.jquery.com/jquery-1.10.0.min.js"%3E%3C/script%3E'));
-              }
-          </script>
-        
-           <script type="text/javascript"            src="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/js/tooltipster.bundle.min.js"></script>
-        
-            <script>
-                   $(document).ready(function() {
-                       $('.tooltip').tooltipster({
-                           theme: 'tooltipster-punk',
-                           contentAsHTML: true,
-                           animation: 'grow',
-                           delay: [100,500],
-                           // trigger: 'click'
-                           trigger: 'custom',
-                           triggerOpen: {
-                               mouseenter: true
-                           },
-                           triggerClose: {
-                               originClick: true,
-                               scroll: true
-                           }
-           });
-                   });
-               </script>
-        
-          <style>
-             abbr {color: red;}
-        
-             .tooltip { border-bottom: 1px dotted #000;
-                        color:red;
-                        text-decoration: none;}
-          </style>
-          
-          <style>
-          /* From: https://endlessparentheses.com/public/css/endless.css */
-          /* See also: https://meta.superuser.com/questions/4788/css-for-the-new-kbd-style */
-          kbd
-          {
-            -moz-border-radius: 6px;
-            -moz-box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-            -webkit-border-radius: 6px;
-            -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-            background-color: #f7f7f7;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-            color: #333;
-            display: inline-block;
-            font-family: 'Droid Sans Mono', monospace;
-            font-size: 80%;
-            font-weight: normal;
-            line-height: inherit;
-            margin: 0 .1em;
-            padding: .08em .4em;
-            text-shadow: 0 1px 0 #fff;
-            word-spacing: -4px;
-        
-            box-shadow: 2px 2px 2px #222; /* MA: An extra I've added. */
-          }
-          </style>
-          <link rel="stylesheet" type="text/css" href="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/css/tooltipster.bundle.min.css"/>
-        
-          <link rel="stylesheet" type="text/css" href="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-punk.min.css" />
-        
-          <script type="text/javascript">
-              if (typeof jQuery == 'undefined') {
-                  document.write(unescape('%3Cscript src="https://code.jquery.com/jquery-1.10.0.min.js"%3E%3C/script%3E'));
-              }
-          </script>
-        
-           <script type="text/javascript"            src="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/js/tooltipster.bundle.min.js"></script>
-        
-            <script>
-                   $(document).ready(function() {
-                       $('.tooltip').tooltipster({
-                           theme: 'tooltipster-punk',
-                           contentAsHTML: true,
-                           animation: 'grow',
-                           delay: [100,500],
-                           // trigger: 'click'
-                           trigger: 'custom',
-                           triggerOpen: {
-                               mouseenter: true
-                           },
-                           triggerClose: {
-                               originClick: true,
-                               scroll: true
-                           }
-           });
-                   });
-               </script>
-        
-          <style>
-             abbr {color: red;}
-        
-             .tooltip { border-bottom: 1px dotted #000;
-                        color:red;
-                        text-decoration: none;}
-          </style>
-          
-          <style>
-          /* From: https://endlessparentheses.com/public/css/endless.css */
-          /* See also: https://meta.superuser.com/questions/4788/css-for-the-new-kbd-style */
-          kbd
-          {
-            -moz-border-radius: 6px;
-            -moz-box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-            -webkit-border-radius: 6px;
-            -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-            background-color: #f7f7f7;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-            color: #333;
-            display: inline-block;
-            font-family: 'Droid Sans Mono', monospace;
-            font-size: 80%;
-            font-weight: normal;
-            line-height: inherit;
-            margin: 0 .1em;
-            padding: .08em .4em;
-            text-shadow: 0 1px 0 #fff;
-            word-spacing: -4px;
-        
-            box-shadow: 2px 2px 2px #222; /* MA: An extra I've added. */
-          }
-          </style>
-          <link rel="stylesheet" type="text/css" href="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/css/tooltipster.bundle.min.css"/>
-        
-          <link rel="stylesheet" type="text/css" href="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-punk.min.css" />
-        
-          <script type="text/javascript">
-              if (typeof jQuery == 'undefined') {
-                  document.write(unescape('%3Cscript src="https://code.jquery.com/jquery-1.10.0.min.js"%3E%3C/script%3E'));
-              }
-          </script>
-        
-           <script type="text/javascript"            src="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/js/tooltipster.bundle.min.js"></script>
-        
-            <script>
-                   $(document).ready(function() {
-                       $('.tooltip').tooltipster({
-                           theme: 'tooltipster-punk',
-                           contentAsHTML: true,
-                           animation: 'grow',
-                           delay: [100,500],
-                           // trigger: 'click'
-                           trigger: 'custom',
-                           triggerOpen: {
-                               mouseenter: true
-                           },
-                           triggerClose: {
-                               originClick: true,
-                               scroll: true
-                           }
-           });
-                   });
-               </script>
-        
-          <style>
-             abbr {color: red;}
-        
-             .tooltip { border-bottom: 1px dotted #000;
-                        color:red;
-                        text-decoration: none;}
-          </style>
-          
-          <style>
-          /* From: https://endlessparentheses.com/public/css/endless.css */
-          /* See also: https://meta.superuser.com/questions/4788/css-for-the-new-kbd-style */
-          kbd
-          {
-            -moz-border-radius: 6px;
-            -moz-box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-            -webkit-border-radius: 6px;
-            -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-            background-color: #f7f7f7;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-            color: #333;
-            display: inline-block;
-            font-family: 'Droid Sans Mono', monospace;
-            font-size: 80%;
-            font-weight: normal;
-            line-height: inherit;
-            margin: 0 .1em;
-            padding: .08em .4em;
-            text-shadow: 0 1px 0 #fff;
-            word-spacing: -4px;
-        
-            box-shadow: 2px 2px 2px #222; /* MA: An extra I've added. */
-          }
-          </style>
-          <link rel="stylesheet" type="text/css" href="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/css/tooltipster.bundle.min.css"/>
-        
-          <link rel="stylesheet" type="text/css" href="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-punk.min.css" />
-        
-          <script type="text/javascript">
-              if (typeof jQuery == 'undefined') {
-                  document.write(unescape('%3Cscript src="https://code.jquery.com/jquery-1.10.0.min.js"%3E%3C/script%3E'));
-              }
-          </script>
-        
-           <script type="text/javascript"            src="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/js/tooltipster.bundle.min.js"></script>
-        
-            <script>
-                   $(document).ready(function() {
-                       $('.tooltip').tooltipster({
-                           theme: 'tooltipster-punk',
-                           contentAsHTML: true,
-                           animation: 'grow',
-                           delay: [100,500],
-                           // trigger: 'click'
-                           trigger: 'custom',
-                           triggerOpen: {
-                               mouseenter: true
-                           },
-                           triggerClose: {
-                               originClick: true,
-                               scroll: true
-                           }
-           });
-                   });
-               </script>
-        
-          <style>
-             abbr {color: red;}
-        
-             .tooltip { border-bottom: 1px dotted #000;
-                        color:red;
-                        text-decoration: none;}
-          </style>
-          
-          <style>
-          /* From: https://endlessparentheses.com/public/css/endless.css */
-          /* See also: https://meta.superuser.com/questions/4788/css-for-the-new-kbd-style */
-          kbd
-          {
-            -moz-border-radius: 6px;
-            -moz-box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-            -webkit-border-radius: 6px;
-            -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-            background-color: #f7f7f7;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-            color: #333;
-            display: inline-block;
-            font-family: 'Droid Sans Mono', monospace;
-            font-size: 80%;
-            font-weight: normal;
-            line-height: inherit;
-            margin: 0 .1em;
-            padding: .08em .4em;
-            text-shadow: 0 1px 0 #fff;
-            word-spacing: -4px;
-        
-            box-shadow: 2px 2px 2px #222; /* MA: An extra I've added. */
-          }
-          </style>
-          <link rel="stylesheet" type="text/css" href="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/css/tooltipster.bundle.min.css"/>
-        
-          <link rel="stylesheet" type="text/css" href="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-punk.min.css" />
-        
-          <script type="text/javascript">
-              if (typeof jQuery == 'undefined') {
-                  document.write(unescape('%3Cscript src="https://code.jquery.com/jquery-1.10.0.min.js"%3E%3C/script%3E'));
-              }
-          </script>
-        
-           <script type="text/javascript"            src="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/js/tooltipster.bundle.min.js"></script>
-        
-            <script>
-                   $(document).ready(function() {
-                       $('.tooltip').tooltipster({
-                           theme: 'tooltipster-punk',
-                           contentAsHTML: true,
-                           animation: 'grow',
-                           delay: [100,500],
-                           // trigger: 'click'
-                           trigger: 'custom',
-                           triggerOpen: {
-                               mouseenter: true
-                           },
-                           triggerClose: {
-                               originClick: true,
-                               scroll: true
-                           }
-           });
-                   });
-               </script>
-        
-          <style>
-             abbr {color: red;}
-        
-             .tooltip { border-bottom: 1px dotted #000;
-                        color:red;
-                        text-decoration: none;}
-          </style>
-          
-          <style>
-          /* From: https://endlessparentheses.com/public/css/endless.css */
-          /* See also: https://meta.superuser.com/questions/4788/css-for-the-new-kbd-style */
-          kbd
-          {
-            -moz-border-radius: 6px;
-            -moz-box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-            -webkit-border-radius: 6px;
-            -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-            background-color: #f7f7f7;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-            color: #333;
-            display: inline-block;
-            font-family: 'Droid Sans Mono', monospace;
-            font-size: 80%;
-            font-weight: normal;
-            line-height: inherit;
-            margin: 0 .1em;
-            padding: .08em .4em;
-            text-shadow: 0 1px 0 #fff;
-            word-spacing: -4px;
-        
-            box-shadow: 2px 2px 2px #222; /* MA: An extra I've added. */
-          }
-          </style>
-          <link rel="stylesheet" type="text/css" href="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/css/tooltipster.bundle.min.css"/>
-        
-          <link rel="stylesheet" type="text/css" href="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-punk.min.css" />
-        
-          <script type="text/javascript">
-              if (typeof jQuery == 'undefined') {
-                  document.write(unescape('%3Cscript src="https://code.jquery.com/jquery-1.10.0.min.js"%3E%3C/script%3E'));
-              }
-          </script>
-        
-           <script type="text/javascript"            src="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/js/tooltipster.bundle.min.js"></script>
-        
-            <script>
-                   $(document).ready(function() {
-                       $('.tooltip').tooltipster({
-                           theme: 'tooltipster-punk',
-                           contentAsHTML: true,
-                           animation: 'grow',
-                           delay: [100,500],
-                           // trigger: 'click'
-                           trigger: 'custom',
-                           triggerOpen: {
-                               mouseenter: true
-                           },
-                           triggerClose: {
-                               originClick: true,
-                               scroll: true
-                           }
-           });
-                   });
-               </script>
-        
-          <style>
-             abbr {color: red;}
-        
-             .tooltip { border-bottom: 1px dotted #000;
-                        color:red;
-                        text-decoration: none;}
-          </style>
-          
-          <style>
-          /* From: https://endlessparentheses.com/public/css/endless.css */
-          /* See also: https://meta.superuser.com/questions/4788/css-for-the-new-kbd-style */
-          kbd
-          {
-            -moz-border-radius: 6px;
-            -moz-box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-            -webkit-border-radius: 6px;
-            -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-            background-color: #f7f7f7;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-            color: #333;
-            display: inline-block;
-            font-family: 'Droid Sans Mono', monospace;
-            font-size: 80%;
-            font-weight: normal;
-            line-height: inherit;
-            margin: 0 .1em;
-            padding: .08em .4em;
-            text-shadow: 0 1px 0 #fff;
-            word-spacing: -4px;
-        
-            box-shadow: 2px 2px 2px #222; /* MA: An extra I've added. */
-          }
-          </style>
-          <link rel="stylesheet" type="text/css" href="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/css/tooltipster.bundle.min.css"/>
-        
-          <link rel="stylesheet" type="text/css" href="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-punk.min.css" />
-        
-          <script type="text/javascript">
-              if (typeof jQuery == 'undefined') {
-                  document.write(unescape('%3Cscript src="https://code.jquery.com/jquery-1.10.0.min.js"%3E%3C/script%3E'));
-              }
-          </script>
-        
-           <script type="text/javascript"            src="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/js/tooltipster.bundle.min.js"></script>
-        
-            <script>
-                   $(document).ready(function() {
-                       $('.tooltip').tooltipster({
-                           theme: 'tooltipster-punk',
-                           contentAsHTML: true,
-                           animation: 'grow',
-                           delay: [100,500],
-                           // trigger: 'click'
-                           trigger: 'custom',
-                           triggerOpen: {
-                               mouseenter: true
-                           },
-                           triggerClose: {
-                               originClick: true,
-                               scroll: true
-                           }
-           });
-                   });
-               </script>
-        
-          <style>
-             abbr {color: red;}
-        
-             .tooltip { border-bottom: 1px dotted #000;
-                        color:red;
-                        text-decoration: none;}
-          </style>
-          
-          <style>
-          /* From: https://endlessparentheses.com/public/css/endless.css */
-          /* See also: https://meta.superuser.com/questions/4788/css-for-the-new-kbd-style */
-          kbd
-          {
-            -moz-border-radius: 6px;
-            -moz-box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-            -webkit-border-radius: 6px;
-            -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-            background-color: #f7f7f7;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-            color: #333;
-            display: inline-block;
-            font-family: 'Droid Sans Mono', monospace;
-            font-size: 80%;
-            font-weight: normal;
-            line-height: inherit;
-            margin: 0 .1em;
-            padding: .08em .4em;
-            text-shadow: 0 1px 0 #fff;
-            word-spacing: -4px;
-        
-            box-shadow: 2px 2px 2px #222; /* MA: An extra I've added. */
-          }
-          </style>
-          <link rel="stylesheet" type="text/css" href="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/css/tooltipster.bundle.min.css"/>
-        
-          <link rel="stylesheet" type="text/css" href="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-punk.min.css" />
-        
-          <script type="text/javascript">
-              if (typeof jQuery == 'undefined') {
-                  document.write(unescape('%3Cscript src="https://code.jquery.com/jquery-1.10.0.min.js"%3E%3C/script%3E'));
-              }
-          </script>
-        
-           <script type="text/javascript"            src="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/js/tooltipster.bundle.min.js"></script>
-        
-            <script>
-                   $(document).ready(function() {
-                       $('.tooltip').tooltipster({
-                           theme: 'tooltipster-punk',
-                           contentAsHTML: true,
-                           animation: 'grow',
-                           delay: [100,500],
-                           // trigger: 'click'
-                           trigger: 'custom',
-                           triggerOpen: {
-                               mouseenter: true
-                           },
-                           triggerClose: {
-                               originClick: true,
-                               scroll: true
-                           }
-           });
-                   });
-               </script>
-        
-          <style>
-             abbr {color: red;}
-        
-             .tooltip { border-bottom: 1px dotted #000;
-                        color:red;
-                        text-decoration: none;}
-          </style>
-          
-          <style>
-          /* From: https://endlessparentheses.com/public/css/endless.css */
-          /* See also: https://meta.superuser.com/questions/4788/css-for-the-new-kbd-style */
-          kbd
-          {
-            -moz-border-radius: 6px;
-            -moz-box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-            -webkit-border-radius: 6px;
-            -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-            background-color: #f7f7f7;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-            color: #333;
-            display: inline-block;
-            font-family: 'Droid Sans Mono', monospace;
-            font-size: 80%;
-            font-weight: normal;
-            line-height: inherit;
-            margin: 0 .1em;
-            padding: .08em .4em;
-            text-shadow: 0 1px 0 #fff;
-            word-spacing: -4px;
-        
-            box-shadow: 2px 2px 2px #222; /* MA: An extra I've added. */
-          }
-          </style>
-          <link rel="stylesheet" type="text/css" href="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/css/tooltipster.bundle.min.css"/>
-        
-          <link rel="stylesheet" type="text/css" href="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-punk.min.css" />
-        
-          <script type="text/javascript">
-              if (typeof jQuery == 'undefined') {
-                  document.write(unescape('%3Cscript src="https://code.jquery.com/jquery-1.10.0.min.js"%3E%3C/script%3E'));
-              }
-          </script>
-        
-           <script type="text/javascript"            src="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/js/tooltipster.bundle.min.js"></script>
-        
-            <script>
-                   $(document).ready(function() {
-                       $('.tooltip').tooltipster({
-                           theme: 'tooltipster-punk',
-                           contentAsHTML: true,
-                           animation: 'grow',
-                           delay: [100,500],
-                           // trigger: 'click'
-                           trigger: 'custom',
-                           triggerOpen: {
-                               mouseenter: true
-                           },
-                           triggerClose: {
-                               originClick: true,
-                               scroll: true
-                           }
-           });
-                   });
-               </script>
-        
-          <style>
-             abbr {color: red;}
-        
-             .tooltip { border-bottom: 1px dotted #000;
-                        color:red;
-                        text-decoration: none;}
-          </style>
-          
-          <style>
-          /* From: https://endlessparentheses.com/public/css/endless.css */
-          /* See also: https://meta.superuser.com/questions/4788/css-for-the-new-kbd-style */
-          kbd
-          {
-            -moz-border-radius: 6px;
-            -moz-box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-            -webkit-border-radius: 6px;
-            -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-            background-color: #f7f7f7;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-            color: #333;
-            display: inline-block;
-            font-family: 'Droid Sans Mono', monospace;
-            font-size: 80%;
-            font-weight: normal;
-            line-height: inherit;
-            margin: 0 .1em;
-            padding: .08em .4em;
-            text-shadow: 0 1px 0 #fff;
-            word-spacing: -4px;
-        
-            box-shadow: 2px 2px 2px #222; /* MA: An extra I've added. */
-          }
-          </style>
-          <link rel="stylesheet" type="text/css" href="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/css/tooltipster.bundle.min.css"/>
-        
-          <link rel="stylesheet" type="text/css" href="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-punk.min.css" />
-        
-          <script type="text/javascript">
-              if (typeof jQuery == 'undefined') {
-                  document.write(unescape('%3Cscript src="https://code.jquery.com/jquery-1.10.0.min.js"%3E%3C/script%3E'));
-              }
-          </script>
-        
-           <script type="text/javascript"            src="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/js/tooltipster.bundle.min.js"></script>
-        
-            <script>
-                   $(document).ready(function() {
-                       $('.tooltip').tooltipster({
-                           theme: 'tooltipster-punk',
-                           contentAsHTML: true,
-                           animation: 'grow',
-                           delay: [100,500],
-                           // trigger: 'click'
-                           trigger: 'custom',
-                           triggerOpen: {
-                               mouseenter: true
-                           },
-                           triggerClose: {
-                               originClick: true,
-                               scroll: true
-                           }
-           });
-                   });
-               </script>
-        
-          <style>
-             abbr {color: red;}
-        
-             .tooltip { border-bottom: 1px dotted #000;
-                        color:red;
-                        text-decoration: none;}
-          </style>
-          
-          <style>
-          /* From: https://endlessparentheses.com/public/css/endless.css */
-          /* See also: https://meta.superuser.com/questions/4788/css-for-the-new-kbd-style */
-          kbd
-          {
-            -moz-border-radius: 6px;
-            -moz-box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-            -webkit-border-radius: 6px;
-            -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-            background-color: #f7f7f7;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-            color: #333;
-            display: inline-block;
-            font-family: 'Droid Sans Mono', monospace;
-            font-size: 80%;
-            font-weight: normal;
-            line-height: inherit;
-            margin: 0 .1em;
-            padding: .08em .4em;
-            text-shadow: 0 1px 0 #fff;
-            word-spacing: -4px;
-        
-            box-shadow: 2px 2px 2px #222; /* MA: An extra I've added. */
-          }
-          </style>
-          <link rel="stylesheet" type="text/css" href="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/css/tooltipster.bundle.min.css"/>
-        
-          <link rel="stylesheet" type="text/css" href="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-punk.min.css" />
-        
-          <script type="text/javascript">
-              if (typeof jQuery == 'undefined') {
-                  document.write(unescape('%3Cscript src="https://code.jquery.com/jquery-1.10.0.min.js"%3E%3C/script%3E'));
-              }
-          </script>
-        
-           <script type="text/javascript"            src="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/js/tooltipster.bundle.min.js"></script>
-        
-            <script>
-                   $(document).ready(function() {
-                       $('.tooltip').tooltipster({
-                           theme: 'tooltipster-punk',
-                           contentAsHTML: true,
-                           animation: 'grow',
-                           delay: [100,500],
-                           // trigger: 'click'
-                           trigger: 'custom',
-                           triggerOpen: {
-                               mouseenter: true
-                           },
-                           triggerClose: {
-                               originClick: true,
-                               scroll: true
-                           }
-           });
-                   });
-               </script>
-        
-          <style>
-             abbr {color: red;}
-        
-             .tooltip { border-bottom: 1px dotted #000;
-                        color:red;
-                        text-decoration: none;}
-          </style>
-          
-          <style>
-          /* From: https://endlessparentheses.com/public/css/endless.css */
-          /* See also: https://meta.superuser.com/questions/4788/css-for-the-new-kbd-style */
-          kbd
-          {
-            -moz-border-radius: 6px;
-            -moz-box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-            -webkit-border-radius: 6px;
-            -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-            background-color: #f7f7f7;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-            color: #333;
-            display: inline-block;
-            font-family: 'Droid Sans Mono', monospace;
-            font-size: 80%;
-            font-weight: normal;
-            line-height: inherit;
-            margin: 0 .1em;
-            padding: .08em .4em;
-            text-shadow: 0 1px 0 #fff;
-            word-spacing: -4px;
-        
-            box-shadow: 2px 2px 2px #222; /* MA: An extra I've added. */
-          }
-          </style>
-          <link rel="stylesheet" type="text/css" href="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/css/tooltipster.bundle.min.css"/>
-        
-          <link rel="stylesheet" type="text/css" href="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-punk.min.css" />
-        
-          <script type="text/javascript">
-              if (typeof jQuery == 'undefined') {
-                  document.write(unescape('%3Cscript src="https://code.jquery.com/jquery-1.10.0.min.js"%3E%3C/script%3E'));
-              }
-          </script>
-        
-           <script type="text/javascript"            src="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/js/tooltipster.bundle.min.js"></script>
-        
-            <script>
-                   $(document).ready(function() {
-                       $('.tooltip').tooltipster({
-                           theme: 'tooltipster-punk',
-                           contentAsHTML: true,
-                           animation: 'grow',
-                           delay: [100,500],
-                           // trigger: 'click'
-                           trigger: 'custom',
-                           triggerOpen: {
-                               mouseenter: true
-                           },
-                           triggerClose: {
-                               originClick: true,
-                               scroll: true
-                           }
-           });
-                   });
-               </script>
-        
-          <style>
-             abbr {color: red;}
-        
-             .tooltip { border-bottom: 1px dotted #000;
-                        color:red;
-                        text-decoration: none;}
-          </style>
 <script>
   window.MathJax = {
     tex: {
@@ -1166,7 +228,7 @@
 </head>
 <body>
 <div id="content" class="content">
-<h1 class="title">Formalizing Bertrand Russell's Principia Mathematica Using Lean4
+<h1 class="title">Formalizing Whitehead &amp; Russell's Principia Mathematica Using Lean4
 <br />
 <span class="subtitle">(the HTML export of this file is rendered better than the GitHub's rendering of org files; check <a href="https://ndrwnaguib.com/principia">https://ndrwnaguib.com/principia</a>)</span>
 </h1>
@@ -1174,32 +236,32 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org6fde22d">1. Notation</a></li>
-<li><a href="#org2332167">2. Editing</a></li>
-<li><a href="#orgf73e52d">3. Notes on the formalization</a>
+<li><a href="#org33b0175">1. Notation</a></li>
+<li><a href="#orgbb2a362">2. Editing</a></li>
+<li><a href="#orgcd05864">3. Notes on the formalization</a>
 <ul>
-<li><a href="#org1aca873">3.1. \(\ast 1 \cdot 11\)</a></li>
-<li><a href="#org25ecb01">3.2. Metaprogramming <code>Syll</code></a></li>
+<li><a href="#org92ff333">3.1. \(\ast 1 \cdot 11\)</a></li>
+<li><a href="#org930051e">3.2. Metaprogramming <code>Syll</code></a></li>
 </ul>
 </li>
-<li><a href="#org9eb3581">4. Remarks</a></li>
+<li><a href="#org46b956c">4. Remarks</a></li>
 </ul>
 </div>
 </div>
 
-<div id="org27d0a1c" class="figure">
+<div id="org7d66373" class="figure">
 <p><img src="./images/principia-mathematica-book-cover.png" alt="principia-mathematica-book-cover.png" align="right" width="300px" />
 </p>
 </div>
 
 <p>
-This <a href="https://github.com/ndrwnaguib/principia">project</a> aims to formalize the first volume of Prof. Bertrand Russell's
+This <a href="https://github.com/ndrwnaguib/principia">project</a> aims to formalize the first volume of Whitehead &amp; Russell's
 Principia Mathematica using the Lean theorem prover. The goal is to ensure that
 the formalization aligns clearly with the corresponding theorems in the book to
-avoid confusion (See <a href="#org25ecb01">Metaprogramming <code>Syll</code></a>)
+avoid confusion (See <a href="#org930051e">Metaprogramming <code>Syll</code></a>)
 </p>
-<div id="outline-container-org6fde22d" class="outline-2">
-<h2 id="org6fde22d"><span class="section-number-2">1.</span> Notation</h2>
+<div id="outline-container-org33b0175" class="outline-2">
+<h2 id="org33b0175"><span class="section-number-2">1.</span> Notation</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 <a href="https://plato.stanford.edu/entries/principia-mathematica/">Principia Mathematica</a>'s notation (Peano-Russell notation) is exceptionally known
@@ -1211,70 +273,68 @@ Genealogy of Principia’s Dot Notation</a> explains the notation skillfully.
 <p>
 I do not think there is a <b>need</b> to read them, I would like to believe that
 after reading a few examples of how some formulas were formalized and
-contrasting them against Prof. Russell's notation should make it clear.
+contrasting them against the Principia's notation should make it clear.
 </p>
 
 <p>
-Throughout the formalization, I tried to rigorously follow Prof. Russell's
-proof, with no or little added statements from my side, which were only
-necessary for the formalization but not the logical argument. Should you notice
-any inaccuracy (even if it does not necessarily falsify the proof), please let
-me know as I would like to proceed with the same spirit of rigor as Prof.
-Russell.
+Throughout the formalization, I tried to rigorously follow the proofs,
+with no or little added statements from my side, which were only necessary for
+the formalization but not the logical argument. Should you notice any inaccuracy
+(even if it does not necessarily falsify the proof).
 </p>
 
 <p>
-Before starting this project, I had already found <a href="https://www.principiarewrite.com/">Prof. Elkind's formalization
-of the Principia using Coq</a>, which is much mature work than this one. However, I
-still thought it would be fun to do it using Lean4 (See <a href="#org9eb3581">Remarks</a>).
+Before starting this project, I had already found <a href="https://www.principiarewrite.com/">formalization of the the
+Principia using Coq</a>, which is much mature work than this one. However, I still
+thought it would be fun to do it using Lean4 (See <a href="#org46b956c">Remarks</a>).
 </p>
 </div>
 </div>
-<div id="outline-container-org2332167" class="outline-2">
-<h2 id="org2332167"><span class="section-number-2">2.</span> Editing</h2>
+<div id="outline-container-orgbb2a362" class="outline-2">
+<h2 id="orgbb2a362"><span class="section-number-2">2.</span> Editing</h2>
 <div class="outline-text-2" id="text-2">
 <p>
-I have included a \(\LaTeX\) fragment with each theorem that represents Prof. Russell's
-proof. If you use Emacs, I recommend enabling <code>org-preview-latex</code> in the Lean
-buffer. If you are using VSCode, perhaps a similar experience can be achieved by
-installing the <code>Better Comments</code> extension. This is how it looked like for me:
+I have included a \(\LaTeX\) fragment with each theorem. If you use Emacs, I
+recommend enabling <code>org-preview-latex</code> in the Lean buffer. If you are using
+VSCode, perhaps a similar experience can be achieved by installing the <code>Better
+Comments</code> extension. This is how it looked like for me:
 </p>
 
 
-<div id="org0711b52" class="figure">
+<div id="org3941c43" class="figure">
 <p><img src="./images/editing-experience.png" alt="editing-experience.png" align="center" width="100%" />
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-orgf73e52d" class="outline-2">
-<h2 id="orgf73e52d"><span class="section-number-2">3.</span> Notes on the formalization</h2>
+<div id="outline-container-orgcd05864" class="outline-2">
+<h2 id="orgcd05864"><span class="section-number-2">3.</span> Notes on the formalization</h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-org1aca873" class="outline-3">
-<h3 id="org1aca873"><span class="section-number-3">3.1.</span> \(\ast 1 \cdot 11\)</h3>
+<div id="outline-container-org92ff333" class="outline-3">
+<h3 id="org92ff333"><span class="section-number-3">3.1.</span> \(\ast 1 \cdot 11\)</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
-Prof. Russell repeatedly used *1.11 to indicate the inference of a proposition
+In the Principia, *1.11 is repeatedly used to indicate the inference of a proposition
 from another, for example \([(3).(8).\ast 1\cdot 11]\) is the proposition deduced by chaining
 proposition (8) and (3). In Lean, this could be analogous to several tactics or
 atoms, e.g., <code>&lt;|</code>, <code>simp</code>, etc.
 </p>
 </div>
 </div>
-<div id="outline-container-org25ecb01" class="outline-3">
-<h3 id="org25ecb01"><span class="section-number-3">3.2.</span> Metaprogramming <code>Syll</code></h3>
+<div id="outline-container-org930051e" class="outline-3">
+<h3 id="org930051e"><span class="section-number-3">3.2.</span> Metaprogramming <code>Syll</code></h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 The experience I planned for when reading the formalization is to have the
-corresponding text in the Principia included in the same file, only with Prof.
-Russell's proofs replaced with their Lean formalization. For example, here is
+corresponding text in the Principia included in the same file, only with the
+original proofs replaced with their Lean formalization. For example, here is
 *2.16 along with a unique part in the formalization, that is <a href="https://leanprover-community.github.io/lean4-metaprogramming-book/main/09_tactics.html">metaprogramming a
-new tactic</a> to follow Prof. Russell's notation for <code>Syll</code>:
+new tactic</a> to follow the notation for <code>Syll</code>:
 </p>
 
 
-<div id="org2c96582" class="figure">
+<div id="org67a636d" class="figure">
 <p><img src="./images/syll.png" alt="syll.png" align="center" width="50%" />
 </p>
 <p><span class="figure-number">Figure 1: </span>The <code>Syll</code> abbreviation defined in *B</p>
@@ -1294,9 +354,9 @@ new tactic</a> to follow Prof. Russell's notation for <code>Syll</code>:
 <span style="color: #5F7F5F;">/-</span><span style="color: #7F9F7F;">- Compose two implication proofs using the `compose` theorem.</span><span style="color: #5F7F5F;"> -/</span>
 <span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #93E0E3;">ImpProof.compose</span> <span style="color: #DCDCCC;">(</span>a : ImpProof<span style="color: #DCDCCC;">)</span> <span style="color: #DCDCCC;">(</span>b : ImpProof<span style="color: #DCDCCC;">)</span> : MetaM ImpProof <span style="color: #BFEBBF;">:=</span> <span style="color: #F0DFAF; font-weight: bold;">do</span>
   <span style="color: #F0DFAF; font-weight: bold;">unless</span> &#8592; isDefEq a.cons b.ant <span style="color: #F0DFAF; font-weight: bold;">do</span>
-    throwError <span style="color: #CC9393;">"\</span>
-<span style="color: #CC9393;">      Consequent{indentD a.cons}\n\</span>
-<span style="color: #CC9393;">      is not definitionally equal to antecedent{indentD b.ant}"</span>
+    throwError <span style="color: #CC9393;">"\
+      Consequent{indentD a.cons}\n\
+      is not definitionally equal to antecedent{indentD b.ant}"</span>
   <span style="color: #F0DFAF; font-weight: bold;">let</span> proof <span style="color: #BFEBBF;">:=</span> mkApp5 <span style="color: #DCDCCC;">(</span>.const ``compose <span style="color: #BFEBBF;">[]</span><span style="color: #DCDCCC;">)</span> a.ant a.cons b.cons a.proof b.proof
   <span style="color: #F0DFAF; font-weight: bold;">return</span> <span style="color: #DCDCCC;">{</span> ant <span style="color: #BFEBBF;">:=</span> a.ant, cons <span style="color: #BFEBBF;">:=</span> b.cons, proof <span style="color: #BFEBBF;">:=</span> proof <span style="color: #DCDCCC;">}</span>
 
@@ -1309,8 +369,8 @@ new tactic</a> to follow Prof. Russell's notation for <code>Syll</code>:
 elab_rules : tactic
   | `<span style="color: #DCDCCC;">(</span>tactic| Syll <span style="color: #BFEBBF;">$</span><span style="color: #BFEBBF;">[</span><span style="color: #D0BF8F;">[</span><span style="color: #BFEBBF;">$</span><span style="color: #93E0E3;">[</span><span style="color: #BFEBBF;">$</span>terms?<span style="color: #93E0E3;">]</span>,<span style="color: #BFEBBF;">*</span><span style="color: #D0BF8F;">]</span><span style="color: #BFEBBF;">]</span>?<span style="color: #DCDCCC;">)</span> <span style="color: #BFEBBF;">=&gt;</span> withMainContext <span style="color: #F0DFAF; font-weight: bold;">do</span>
 
-    <span style="color: #5F7F5F;">-- </span><span style="color: #7F9F7F;">Elaborate all the supplied hypotheses, or use the entire local context if not provided.</span>
-    <span style="color: #F0DFAF; font-weight: bold;">let</span> hyps &#8592;
+    <span style="color: #5F7F5F;">-- </span><span style="color: #7F9F7F;">Elaborate all the supplied hypotheses, or use the entire local context if not provided.
+</span>    <span style="color: #F0DFAF; font-weight: bold;">let</span> hyps &#8592;
       <span style="color: #F0DFAF; font-weight: bold;">match</span> terms? <span style="color: #F0DFAF; font-weight: bold;">with</span>
       | none <span style="color: #BFEBBF;">=&gt;</span> getLocalHyps
       | some terms <span style="color: #BFEBBF;">=&gt;</span> terms.mapM <span style="color: #F0DFAF; font-weight: bold;">fun</span> term <span style="color: #BFEBBF;">=&gt;</span> Tactic.elabTerm term none
@@ -1318,14 +378,14 @@ elab_rules : tactic
     liftMetaTactic1 <span style="color: #F0DFAF; font-weight: bold;">fun</span> goal <span style="color: #BFEBBF;">=&gt;</span> <span style="color: #F0DFAF; font-weight: bold;">do</span>
       <span style="color: #F0DFAF; font-weight: bold;">let</span> goalType &#8592; goal.getType
 
-      <span style="color: #5F7F5F;">-- </span><span style="color: #7F9F7F;">A list of implications extracted from `hyps`.</span>
-      <span style="color: #F0DFAF; font-weight: bold;">let</span> <span style="color: #F0DFAF; font-weight: bold;">mut</span> chain : Array ImpProof <span style="color: #BFEBBF;">:=</span> <span style="color: #BFEBBF;">#</span><span style="color: #DCDCCC;">[]</span>
+      <span style="color: #5F7F5F;">-- </span><span style="color: #7F9F7F;">A list of implications extracted from `hyps`.
+</span>      <span style="color: #F0DFAF; font-weight: bold;">let</span> <span style="color: #F0DFAF; font-weight: bold;">mut</span> chain : Array ImpProof <span style="color: #BFEBBF;">:=</span> <span style="color: #BFEBBF;">#</span><span style="color: #DCDCCC;">[]</span>
 
       <span style="color: #F0DFAF; font-weight: bold;">let</span> getImplication? <span style="color: #DCDCCC;">(</span>e : Expr<span style="color: #DCDCCC;">)</span> : MetaM <span style="color: #DCDCCC;">(</span>Option <span style="color: #BFEBBF;">(</span>Expr <span style="color: #BFEBBF;">&#215;</span> Expr<span style="color: #BFEBBF;">)</span><span style="color: #DCDCCC;">)</span> <span style="color: #BFEBBF;">:=</span> <span style="color: #F0DFAF; font-weight: bold;">do</span>
-        <span style="color: #5F7F5F;">-- </span><span style="color: #7F9F7F;">There may be metadata and metavariables, so do some unfolding if necessary:</span>
-        <span style="color: #F0DFAF; font-weight: bold;">let</span> ty &#8592; instantiateMVars <span style="color: #DCDCCC;">(</span>&#8592; whnfR e<span style="color: #DCDCCC;">)</span>
-        <span style="color: #5F7F5F;">-- </span><span style="color: #7F9F7F;">Check if it is a non-dependent forall:</span>
-        <span style="color: #F0DFAF; font-weight: bold;">if</span> ty.isArrow <span style="color: #F0DFAF; font-weight: bold;">then</span>
+        <span style="color: #5F7F5F;">-- </span><span style="color: #7F9F7F;">There may be metadata and metavariables, so do some unfolding if necessary:
+</span>        <span style="color: #F0DFAF; font-weight: bold;">let</span> ty &#8592; instantiateMVars <span style="color: #DCDCCC;">(</span>&#8592; whnfR e<span style="color: #DCDCCC;">)</span>
+        <span style="color: #5F7F5F;">-- </span><span style="color: #7F9F7F;">Check if it is a non-dependent forall:
+</span>        <span style="color: #F0DFAF; font-weight: bold;">if</span> ty.isArrow <span style="color: #F0DFAF; font-weight: bold;">then</span>
           <span style="color: #F0DFAF; font-weight: bold;">return</span> <span style="color: #DCDCCC;">(</span>ty.bindingDomain<span style="color: #BFEBBF;">!</span>, ty.bindingBody<span style="color: #BFEBBF;">!</span><span style="color: #DCDCCC;">)</span>
         <span style="color: #F0DFAF; font-weight: bold;">else</span>
           <span style="color: #F0DFAF; font-weight: bold;">return</span> none
@@ -1349,8 +409,8 @@ elab_rules : tactic
 
       <span style="color: #F0DFAF; font-weight: bold;">let</span> comp &#8592; chain.foldlM <span style="color: #DCDCCC;">(</span>init <span style="color: #BFEBBF;">:=</span> ImpProof.rfl p<span style="color: #DCDCCC;">)</span> <span style="color: #DCDCCC;">(</span><span style="color: #F0DFAF; font-weight: bold;">fun</span> pf1 pf2 <span style="color: #BFEBBF;">=&gt;</span> pf1.compose pf2<span style="color: #DCDCCC;">)</span>
 
-      <span style="color: #5F7F5F;">-- </span><span style="color: #7F9F7F;">It's good to do one last check that the proof has the correct type before assignment.</span>
-      <span style="color: #F0DFAF; font-weight: bold;">unless</span> &#8592; isDefEq <span style="color: #DCDCCC;">(</span>&#8592; inferType comp.proof<span style="color: #DCDCCC;">)</span> goalType <span style="color: #F0DFAF; font-weight: bold;">do</span>
+      <span style="color: #5F7F5F;">-- </span><span style="color: #7F9F7F;">It's good to do one last check that the proof has the correct type before assignment.
+</span>      <span style="color: #F0DFAF; font-weight: bold;">unless</span> &#8592; isDefEq <span style="color: #DCDCCC;">(</span>&#8592; inferType comp.proof<span style="color: #DCDCCC;">)</span> goalType <span style="color: #F0DFAF; font-weight: bold;">do</span>
         throwError <span style="color: #CC9393;">"Invalid proof of goal"</span>
       goal.assign comp.proof
 
@@ -1363,7 +423,7 @@ Consequently, I could write the following:
 </p>
 
 
-<div id="org340d5d7" class="figure">
+<div id="org44477af" class="figure">
 <p><img src="./images/syll-example.png" alt="syll-example.png" width="100%" />
 </p>
 <p><span class="figure-number">Figure 2: </span>Illustration of the <code>Syll</code> tactic on proving \(\ast 2\cdot 16\) and \(\ast 2\cdot 17\)</p>
@@ -1377,13 +437,13 @@ with one that accepts two hypotheses.
 </div>
 </div>
 </div>
-<div id="outline-container-org9eb3581" class="outline-2">
-<h2 id="org9eb3581"><span class="section-number-2">4.</span> Remarks</h2>
+<div id="outline-container-org46b956c" class="outline-2">
+<h2 id="org46b956c"><span class="section-number-2">4.</span> Remarks</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 I do not see a particular use for this project except for learning the
 thought-process of building mathematics from scratch. Although the Principia is
-thought to be “a monumental failure”, as said by Prof. Freeman Dyson, it was an
+thought to be “a monumental failure”, as said by Freeman Dyson, it was an
 enriching experience for me to read as well as to formalize-especially after
 observing how the latter, more complicated results, are obtained using simpler
 ones I personally formalized.
@@ -1391,14 +451,14 @@ ones I personally formalized.
 
 
 
-<div id="org24cbc6f" class="figure">
+<div id="org27a0f54" class="figure">
 <p><img src="./images/building-from-constituents.png" alt="building-from-constituents.png" align="center" width="100%" />
 </p>
 </div>
 
 
 
-<div id="org3a9c556" class="figure">
+<div id="orgce0000f" class="figure">
 <p><img src="./images/logic-semantics-and-metamathematics-book-cover.png" alt="logic-semantics-and-metamathematics-book-cover.png" width="30%" align="right" />
 </p>
 </div>
@@ -1412,7 +472,7 @@ Semantics, and Metamathematics.”
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Andrew Naguib</p>
-<p class="date">Created: 2024-11-20 Wed 17:18</p>
+<p class="date">Created: 2025-08-14 Thu 03:30</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
