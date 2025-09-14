@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2025-08-14 Thu 03:30 -->
+<!-- 2025-09-14 Sun 14:16 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Formalizing Whitehead &amp; Russell's Principia Mathematica Using Lean4</title>
@@ -236,20 +236,20 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org33b0175">1. Notation</a></li>
-<li><a href="#orgbb2a362">2. Editing</a></li>
-<li><a href="#orgcd05864">3. Notes on the formalization</a>
+<li><a href="#orge919659">1. Notation</a></li>
+<li><a href="#orgd7ab2e0">2. Editing</a></li>
+<li><a href="#orge1b2e15">3. Notes on the formalization</a>
 <ul>
-<li><a href="#org92ff333">3.1. \(\ast 1 \cdot 11\)</a></li>
-<li><a href="#org930051e">3.2. Metaprogramming <code>Syll</code></a></li>
+<li><a href="#orgbbc4887">3.1. \(\ast 1 \cdot 11\)</a></li>
+<li><a href="#orgb12ef91">3.2. Metaprogramming <code>Syll</code></a></li>
 </ul>
 </li>
-<li><a href="#org46b956c">4. Remarks</a></li>
+<li><a href="#org3eb0ddc">4. Remarks</a></li>
 </ul>
 </div>
 </div>
 
-<div id="org7d66373" class="figure">
+<div id="orgac4a974" class="figure">
 <p><img src="./images/principia-mathematica-book-cover.png" alt="principia-mathematica-book-cover.png" align="right" width="300px" />
 </p>
 </div>
@@ -258,10 +258,10 @@
 This <a href="https://github.com/ndrwnaguib/principia">project</a> aims to formalize the first volume of Whitehead &amp; Russell's
 Principia Mathematica using the Lean theorem prover. The goal is to ensure that
 the formalization aligns clearly with the corresponding theorems in the book to
-avoid confusion (See <a href="#org930051e">Metaprogramming <code>Syll</code></a>)
+avoid confusion (See <a href="#orgb12ef91">Metaprogramming <code>Syll</code></a>)
 </p>
-<div id="outline-container-org33b0175" class="outline-2">
-<h2 id="org33b0175"><span class="section-number-2">1.</span> Notation</h2>
+<div id="outline-container-orge919659" class="outline-2">
+<h2 id="orge919659"><span class="section-number-2">1.</span> Notation</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 <a href="https://plato.stanford.edu/entries/principia-mathematica/">Principia Mathematica</a>'s notation (Peano-Russell notation) is exceptionally known
@@ -271,27 +271,27 @@ Genealogy of Principia’s Dot Notation</a> explains the notation skillfully.
 </p>
 
 <p>
-I do not think there is a <b>need</b> to read them, I would like to believe that
-after reading a few examples of how some formulas were formalized and
-contrasting them against the Principia's notation should make it clear.
+I would like to believe that after reading a few examples of how some formulas
+were formalized and contrasting them against the Principia's notation should
+make it clear.
 </p>
 
 <p>
 Throughout the formalization, I tried to rigorously follow the proofs,
 with no or little added statements from my side, which were only necessary for
 the formalization but not the logical argument. Should you notice any inaccuracy
-(even if it does not necessarily falsify the proof).
+(even if it does not necessarily falsify the proof), please let me know.
 </p>
 
 <p>
 Before starting this project, I had already found <a href="https://www.principiarewrite.com/">formalization of the the
-Principia using Coq</a>, which is much mature work than this one. However, I still
-thought it would be fun to do it using Lean4 (See <a href="#org46b956c">Remarks</a>).
+Principia using Coq</a>, which is much more mature work than this one. However, I
+still thought it would be fun to do it using Lean4 (See <a href="#org3eb0ddc">Remarks</a>).
 </p>
 </div>
 </div>
-<div id="outline-container-orgbb2a362" class="outline-2">
-<h2 id="orgbb2a362"><span class="section-number-2">2.</span> Editing</h2>
+<div id="outline-container-orgd7ab2e0" class="outline-2">
+<h2 id="orgd7ab2e0"><span class="section-number-2">2.</span> Editing</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 I have included a \(\LaTeX\) fragment with each theorem. If you use Emacs, I
@@ -301,18 +301,18 @@ Comments</code> extension. This is how it looked like for me:
 </p>
 
 
-<div id="org3941c43" class="figure">
+<div id="org3d0a38d" class="figure">
 <p><img src="./images/editing-experience.png" alt="editing-experience.png" align="center" width="100%" />
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-orgcd05864" class="outline-2">
-<h2 id="orgcd05864"><span class="section-number-2">3.</span> Notes on the formalization</h2>
+<div id="outline-container-orge1b2e15" class="outline-2">
+<h2 id="orge1b2e15"><span class="section-number-2">3.</span> Notes on the formalization</h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-org92ff333" class="outline-3">
-<h3 id="org92ff333"><span class="section-number-3">3.1.</span> \(\ast 1 \cdot 11\)</h3>
+<div id="outline-container-orgbbc4887" class="outline-3">
+<h3 id="orgbbc4887"><span class="section-number-3">3.1.</span> \(\ast 1 \cdot 11\)</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 In the Principia, *1.11 is repeatedly used to indicate the inference of a proposition
@@ -322,8 +322,8 @@ atoms, e.g., <code>&lt;|</code>, <code>simp</code>, etc.
 </p>
 </div>
 </div>
-<div id="outline-container-org930051e" class="outline-3">
-<h3 id="org930051e"><span class="section-number-3">3.2.</span> Metaprogramming <code>Syll</code></h3>
+<div id="outline-container-orgb12ef91" class="outline-3">
+<h3 id="orgb12ef91"><span class="section-number-3">3.2.</span> Metaprogramming <code>Syll</code></h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 The experience I planned for when reading the formalization is to have the
@@ -334,87 +334,87 @@ new tactic</a> to follow the notation for <code>Syll</code>:
 </p>
 
 
-<div id="org67a636d" class="figure">
+<div id="org5ba34e8" class="figure">
 <p><img src="./images/syll.png" alt="syll.png" align="center" width="50%" />
 </p>
 <p><span class="figure-number">Figure 1: </span>The <code>Syll</code> abbreviation defined in *B</p>
 </div>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 1: </span>(I received <a href="https://leanprover.zulipchat.com/#narrow/stream/270676-lean4/topic/How.20to.20properly.20define.20the.20.22Syll.22.20tactic.3F/near/455803243">help from Kyle Miller</a> to write this tactic in the way I wanted)</label><pre class="src src-lean4"><span style="color: #F0DFAF; font-weight: bold;">open</span> Lean Meta Elab Tactic Term
+<label class="org-src-name"><span class="listing-number">Listing 1: </span>(I received <a href="https://leanprover.zulipchat.com/#narrow/stream/270676-lean4/topic/How.20to.20properly.20define.20the.20.22Syll.22.20tactic.3F/near/455803243">help from Kyle Miller</a> to write this tactic in the way I wanted)</label><pre class="src src-lean4"><span style="color: #3f567b; font-weight: bold;">open</span> Lean Meta Elab Tactic Term
 
-<span style="color: #F0DFAF; font-weight: bold;">structure</span> <span style="color: #93E0E3;">ImpProof</span> <span style="color: #F0DFAF; font-weight: bold;">where</span>
-  <span style="color: #DCDCCC;">(</span>ant cons : Expr<span style="color: #DCDCCC;">)</span>
-  <span style="color: #DCDCCC;">(</span>proof : Expr<span style="color: #DCDCCC;">)</span>
-  <span style="color: #F0DFAF; font-weight: bold;">deriving</span> Inhabited
+<span style="color: #3f567b; font-weight: bold;">structure</span> <span style="color: #714355; font-weight: bold;">ImpProof</span> <span style="color: #3f567b; font-weight: bold;">where</span>
+  <span style="color: #525252;">(</span>ant cons : Expr<span style="color: #525252;">)</span>
+  <span style="color: #525252;">(</span>proof : Expr<span style="color: #525252;">)</span>
+  <span style="color: #3f567b; font-weight: bold;">deriving</span> Inhabited
 
-<span style="color: #F0DFAF; font-weight: bold;">theorem</span> <span style="color: #93E0E3;">compose</span> <span style="color: #DCDCCC;">{</span>p q r : <span style="color: #7CB8BB;">Prop</span><span style="color: #DCDCCC;">}</span> <span style="color: #DCDCCC;">(</span>a : p <span style="color: #BFEBBF;">&#8594;</span> q<span style="color: #DCDCCC;">)</span> <span style="color: #DCDCCC;">(</span>b : q <span style="color: #BFEBBF;">&#8594;</span> r<span style="color: #DCDCCC;">)</span> : p <span style="color: #BFEBBF;">&#8594;</span> r <span style="color: #BFEBBF;">:=</span>
-  b <span style="color: #BFEBBF;">&#8728;</span> a
+<span style="color: #3f567b; font-weight: bold;">theorem</span> <span style="color: #714355; font-weight: bold;">compose</span> <span style="color: #525252;">{</span>p q r : <span style="color: #634575;">Prop</span><span style="color: #525252;">}</span> <span style="color: #525252;">(</span>a : p <span style="color: #64502f;">&#8594;</span> q<span style="color: #525252;">)</span> <span style="color: #525252;">(</span>b : q <span style="color: #64502f;">&#8594;</span> r<span style="color: #525252;">)</span> : p <span style="color: #64502f;">&#8594;</span> r <span style="color: #64502f;">:=</span>
+  b <span style="color: #64502f;">&#8728;</span> a
 
-<span style="color: #5F7F5F;">/-</span><span style="color: #7F9F7F;">- Compose two implication proofs using the `compose` theorem.</span><span style="color: #5F7F5F;"> -/</span>
-<span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #93E0E3;">ImpProof.compose</span> <span style="color: #DCDCCC;">(</span>a : ImpProof<span style="color: #DCDCCC;">)</span> <span style="color: #DCDCCC;">(</span>b : ImpProof<span style="color: #DCDCCC;">)</span> : MetaM ImpProof <span style="color: #BFEBBF;">:=</span> <span style="color: #F0DFAF; font-weight: bold;">do</span>
-  <span style="color: #F0DFAF; font-weight: bold;">unless</span> &#8592; isDefEq a.cons b.ant <span style="color: #F0DFAF; font-weight: bold;">do</span>
-    throwError <span style="color: #CC9393;">"\
+<span style="color: #949494;">/-</span><span style="color: #949494;">- Compose two implication proofs using the `compose` theorem.</span><span style="color: #949494;"> -/</span>
+<span style="color: #3f567b; font-weight: bold;">def</span> <span style="color: #714355; font-weight: bold;">ImpProof.compose</span> <span style="color: #525252;">(</span>a : ImpProof<span style="color: #525252;">)</span> <span style="color: #525252;">(</span>b : ImpProof<span style="color: #525252;">)</span> : MetaM ImpProof <span style="color: #64502f;">:=</span> <span style="color: #3f567b; font-weight: bold;">do</span>
+  <span style="color: #3f567b; font-weight: bold;">unless</span> &#8592; isDefEq a.cons b.ant <span style="color: #3f567b; font-weight: bold;">do</span>
+    throwError <span style="color: #305f5e;">"\
       Consequent{indentD a.cons}\n\
       is not definitionally equal to antecedent{indentD b.ant}"</span>
-  <span style="color: #F0DFAF; font-weight: bold;">let</span> proof <span style="color: #BFEBBF;">:=</span> mkApp5 <span style="color: #DCDCCC;">(</span>.const ``compose <span style="color: #BFEBBF;">[]</span><span style="color: #DCDCCC;">)</span> a.ant a.cons b.cons a.proof b.proof
-  <span style="color: #F0DFAF; font-weight: bold;">return</span> <span style="color: #DCDCCC;">{</span> ant <span style="color: #BFEBBF;">:=</span> a.ant, cons <span style="color: #BFEBBF;">:=</span> b.cons, proof <span style="color: #BFEBBF;">:=</span> proof <span style="color: #DCDCCC;">}</span>
+  <span style="color: #3f567b; font-weight: bold;">let</span> proof <span style="color: #64502f;">:=</span> mkApp5 <span style="color: #525252;">(</span>.const ``compose <span style="color: #634575;">[]</span><span style="color: #525252;">)</span> a.ant a.cons b.cons a.proof b.proof
+  <span style="color: #3f567b; font-weight: bold;">return</span> <span style="color: #525252;">{</span> ant <span style="color: #64502f;">:=</span> a.ant, cons <span style="color: #64502f;">:=</span> b.cons, proof <span style="color: #64502f;">:=</span> proof <span style="color: #525252;">}</span>
 
-<span style="color: #5F7F5F;">/-</span><span style="color: #7F9F7F;">- Create the proof of `p -&gt; p` using the `id` function.</span><span style="color: #5F7F5F;"> -/</span>
-<span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #93E0E3;">ImpProof.rfl</span> <span style="color: #DCDCCC;">(</span>p : Expr<span style="color: #DCDCCC;">)</span> : ImpProof <span style="color: #BFEBBF;">:=</span>
-  <span style="color: #DCDCCC;">{</span> ant <span style="color: #BFEBBF;">:=</span> p, cons <span style="color: #BFEBBF;">:=</span> p, proof <span style="color: #BFEBBF;">:=</span> .app <span style="color: #BFEBBF;">(</span>.const ``id <span style="color: #D0BF8F;">[</span>.zero<span style="color: #D0BF8F;">]</span><span style="color: #BFEBBF;">)</span> p<span style="color: #DCDCCC;">}</span>
+<span style="color: #949494;">/-</span><span style="color: #949494;">- Create the proof of `p -&gt; p` using the `id` function.</span><span style="color: #949494;"> -/</span>
+<span style="color: #3f567b; font-weight: bold;">def</span> <span style="color: #714355; font-weight: bold;">ImpProof.rfl</span> <span style="color: #525252;">(</span>p : Expr<span style="color: #525252;">)</span> : ImpProof <span style="color: #64502f;">:=</span>
+  <span style="color: #525252;">{</span> ant <span style="color: #64502f;">:=</span> p, cons <span style="color: #64502f;">:=</span> p, proof <span style="color: #64502f;">:=</span> .app <span style="color: #634575;">(</span>.const ``id <span style="color: #3f5b32;">[</span>.zero<span style="color: #3f5b32;">]</span><span style="color: #634575;">)</span> p<span style="color: #525252;">}</span>
 
-<span style="color: #F0DFAF; font-weight: bold;">syntax</span> <span style="color: #CC9393;">"Syll"</span> <span style="color: #DCDCCC;">(</span>ppSpace <span style="color: #CC9393;">"["</span> term,<span style="color: #BFEBBF;">*</span> <span style="color: #CC9393;">"]"</span><span style="color: #DCDCCC;">)</span>? : tactic
+<span style="color: #3f567b; font-weight: bold;">syntax</span> <span style="color: #305f5e;">"Syll"</span> <span style="color: #525252;">(</span>ppSpace <span style="color: #305f5e;">"["</span> term,<span style="color: #64502f;">*</span> <span style="color: #305f5e;">"]"</span><span style="color: #525252;">)</span>? : tactic
 
 elab_rules : tactic
-  | `<span style="color: #DCDCCC;">(</span>tactic| Syll <span style="color: #BFEBBF;">$</span><span style="color: #BFEBBF;">[</span><span style="color: #D0BF8F;">[</span><span style="color: #BFEBBF;">$</span><span style="color: #93E0E3;">[</span><span style="color: #BFEBBF;">$</span>terms?<span style="color: #93E0E3;">]</span>,<span style="color: #BFEBBF;">*</span><span style="color: #D0BF8F;">]</span><span style="color: #BFEBBF;">]</span>?<span style="color: #DCDCCC;">)</span> <span style="color: #BFEBBF;">=&gt;</span> withMainContext <span style="color: #F0DFAF; font-weight: bold;">do</span>
+  | `<span style="color: #525252;">(</span>tactic| Syll <span style="color: #64502f;">$</span><span style="color: #634575;">[</span><span style="color: #3f5b32;">[</span><span style="color: #64502f;">$</span><span style="color: #64502f;">[</span><span style="color: #64502f;">$</span>terms?<span style="color: #64502f;">]</span>,<span style="color: #64502f;">*</span><span style="color: #3f5b32;">]</span><span style="color: #634575;">]</span>?<span style="color: #525252;">)</span> <span style="color: #64502f;">=&gt;</span> withMainContext <span style="color: #3f567b; font-weight: bold;">do</span>
 
-    <span style="color: #5F7F5F;">-- </span><span style="color: #7F9F7F;">Elaborate all the supplied hypotheses, or use the entire local context if not provided.
-</span>    <span style="color: #F0DFAF; font-weight: bold;">let</span> hyps &#8592;
-      <span style="color: #F0DFAF; font-weight: bold;">match</span> terms? <span style="color: #F0DFAF; font-weight: bold;">with</span>
-      | none <span style="color: #BFEBBF;">=&gt;</span> getLocalHyps
-      | some terms <span style="color: #BFEBBF;">=&gt;</span> terms.mapM <span style="color: #F0DFAF; font-weight: bold;">fun</span> term <span style="color: #BFEBBF;">=&gt;</span> Tactic.elabTerm term none
+    <span style="color: #949494;">-- </span><span style="color: #949494;">Elaborate all the supplied hypotheses, or use the entire local context if not provided.
+</span>    <span style="color: #3f567b; font-weight: bold;">let</span> hyps &#8592;
+      <span style="color: #3f567b; font-weight: bold;">match</span> terms? <span style="color: #3f567b; font-weight: bold;">with</span>
+      | none <span style="color: #64502f;">=&gt;</span> getLocalHyps
+      | some terms <span style="color: #64502f;">=&gt;</span> terms.mapM <span style="color: #3f567b; font-weight: bold;">fun</span> term <span style="color: #64502f;">=&gt;</span> Tactic.elabTerm term none
 
-    liftMetaTactic1 <span style="color: #F0DFAF; font-weight: bold;">fun</span> goal <span style="color: #BFEBBF;">=&gt;</span> <span style="color: #F0DFAF; font-weight: bold;">do</span>
-      <span style="color: #F0DFAF; font-weight: bold;">let</span> goalType &#8592; goal.getType
+    liftMetaTactic1 <span style="color: #3f567b; font-weight: bold;">fun</span> goal <span style="color: #64502f;">=&gt;</span> <span style="color: #3f567b; font-weight: bold;">do</span>
+      <span style="color: #3f567b; font-weight: bold;">let</span> goalType &#8592; goal.getType
 
-      <span style="color: #5F7F5F;">-- </span><span style="color: #7F9F7F;">A list of implications extracted from `hyps`.
-</span>      <span style="color: #F0DFAF; font-weight: bold;">let</span> <span style="color: #F0DFAF; font-weight: bold;">mut</span> chain : Array ImpProof <span style="color: #BFEBBF;">:=</span> <span style="color: #BFEBBF;">#</span><span style="color: #DCDCCC;">[]</span>
+      <span style="color: #949494;">-- </span><span style="color: #949494;">A list of implications extracted from `hyps`.
+</span>      <span style="color: #3f567b; font-weight: bold;">let</span> <span style="color: #3f567b; font-weight: bold;">mut</span> chain : Array ImpProof <span style="color: #64502f;">:=</span> <span style="color: #64502f;">#</span><span style="color: #525252;">[]</span>
 
-      <span style="color: #F0DFAF; font-weight: bold;">let</span> getImplication? <span style="color: #DCDCCC;">(</span>e : Expr<span style="color: #DCDCCC;">)</span> : MetaM <span style="color: #DCDCCC;">(</span>Option <span style="color: #BFEBBF;">(</span>Expr <span style="color: #BFEBBF;">&#215;</span> Expr<span style="color: #BFEBBF;">)</span><span style="color: #DCDCCC;">)</span> <span style="color: #BFEBBF;">:=</span> <span style="color: #F0DFAF; font-weight: bold;">do</span>
-        <span style="color: #5F7F5F;">-- </span><span style="color: #7F9F7F;">There may be metadata and metavariables, so do some unfolding if necessary:
-</span>        <span style="color: #F0DFAF; font-weight: bold;">let</span> ty &#8592; instantiateMVars <span style="color: #DCDCCC;">(</span>&#8592; whnfR e<span style="color: #DCDCCC;">)</span>
-        <span style="color: #5F7F5F;">-- </span><span style="color: #7F9F7F;">Check if it is a non-dependent forall:
-</span>        <span style="color: #F0DFAF; font-weight: bold;">if</span> ty.isArrow <span style="color: #F0DFAF; font-weight: bold;">then</span>
-          <span style="color: #F0DFAF; font-weight: bold;">return</span> <span style="color: #DCDCCC;">(</span>ty.bindingDomain<span style="color: #BFEBBF;">!</span>, ty.bindingBody<span style="color: #BFEBBF;">!</span><span style="color: #DCDCCC;">)</span>
-        <span style="color: #F0DFAF; font-weight: bold;">else</span>
-          <span style="color: #F0DFAF; font-weight: bold;">return</span> none
+      <span style="color: #3f567b; font-weight: bold;">let</span> getImplication? <span style="color: #525252;">(</span>e : Expr<span style="color: #525252;">)</span> : MetaM <span style="color: #525252;">(</span>Option <span style="color: #634575;">(</span>Expr <span style="color: #64502f;">&#215;</span> Expr<span style="color: #634575;">)</span><span style="color: #525252;">)</span> <span style="color: #64502f;">:=</span> <span style="color: #3f567b; font-weight: bold;">do</span>
+        <span style="color: #949494;">-- </span><span style="color: #949494;">There may be metadata and metavariables, so do some unfolding if necessary:
+</span>        <span style="color: #3f567b; font-weight: bold;">let</span> ty &#8592; instantiateMVars <span style="color: #525252;">(</span>&#8592; whnfR e<span style="color: #525252;">)</span>
+        <span style="color: #949494;">-- </span><span style="color: #949494;">Check if it is a non-dependent forall:
+</span>        <span style="color: #3f567b; font-weight: bold;">if</span> ty.isArrow <span style="color: #3f567b; font-weight: bold;">then</span>
+          <span style="color: #3f567b; font-weight: bold;">return</span> <span style="color: #525252;">(</span>ty.bindingDomain<span style="color: #64502f;">!</span>, ty.bindingBody<span style="color: #64502f;">!</span><span style="color: #525252;">)</span>
+        <span style="color: #3f567b; font-weight: bold;">else</span>
+          <span style="color: #3f567b; font-weight: bold;">return</span> none
 
-      <span style="color: #F0DFAF; font-weight: bold;">for</span> hyp <span style="color: #F0DFAF; font-weight: bold;">in</span> hyps <span style="color: #F0DFAF; font-weight: bold;">do</span>
-        <span style="color: #F0DFAF; font-weight: bold;">match</span> &#8592; getImplication? <span style="color: #DCDCCC;">(</span>&#8592; inferType hyp<span style="color: #DCDCCC;">)</span> <span style="color: #F0DFAF; font-weight: bold;">with</span>
-        | some <span style="color: #DCDCCC;">(</span>p, q<span style="color: #DCDCCC;">)</span> <span style="color: #BFEBBF;">=&gt;</span> chain <span style="color: #BFEBBF;">:=</span> chain.push <span style="color: #DCDCCC;">{</span>ant <span style="color: #BFEBBF;">:=</span> p, cons <span style="color: #BFEBBF;">:=</span> q, proof <span style="color: #BFEBBF;">:=</span> hyp<span style="color: #DCDCCC;">}</span>
-        | none <span style="color: #BFEBBF;">=&gt;</span> logInfo m<span style="color: #BFEBBF;">!</span><span style="color: #CC9393;">"Expression {hyp} is not of the form `p &#8594; q`"</span>
+      <span style="color: #3f567b; font-weight: bold;">for</span> hyp <span style="color: #3f567b; font-weight: bold;">in</span> hyps <span style="color: #3f567b; font-weight: bold;">do</span>
+        <span style="color: #3f567b; font-weight: bold;">match</span> &#8592; getImplication? <span style="color: #525252;">(</span>&#8592; inferType hyp<span style="color: #525252;">)</span> <span style="color: #3f567b; font-weight: bold;">with</span>
+        | some <span style="color: #525252;">(</span>p, q<span style="color: #525252;">)</span> <span style="color: #64502f;">=&gt;</span> chain <span style="color: #64502f;">:=</span> chain.push <span style="color: #525252;">{</span>ant <span style="color: #64502f;">:=</span> p, cons <span style="color: #64502f;">:=</span> q, proof <span style="color: #64502f;">:=</span> hyp<span style="color: #525252;">}</span>
+        | none <span style="color: #64502f;">=&gt;</span> logInfo m<span style="color: #64502f;">!</span><span style="color: #305f5e;">"Expression {hyp} is not of the form `p &#8594; q`"</span>
 
-      <span style="color: #F0DFAF; font-weight: bold;">let</span> some <span style="color: #DCDCCC;">(</span>p, q<span style="color: #DCDCCC;">)</span> &#8592; getImplication? goalType
-        | throwError <span style="color: #CC9393;">"Goal type is not of the form `p &#8594; q`"</span>
+      <span style="color: #3f567b; font-weight: bold;">let</span> some <span style="color: #525252;">(</span>p, q<span style="color: #525252;">)</span> &#8592; getImplication? goalType
+        | throwError <span style="color: #305f5e;">"Goal type is not of the form `p &#8594; q`"</span>
 
-      <span style="color: #F0DFAF; font-weight: bold;">if</span> chain.isEmpty <span style="color: #F0DFAF; font-weight: bold;">then</span>
-        throwError <span style="color: #CC9393;">"Local context has no implications"</span>
+      <span style="color: #3f567b; font-weight: bold;">if</span> chain.isEmpty <span style="color: #3f567b; font-weight: bold;">then</span>
+        throwError <span style="color: #305f5e;">"Local context has no implications"</span>
 
-      <span style="color: #F0DFAF; font-weight: bold;">unless</span> &#8592; isExprDefEq chain<span style="color: #DCDCCC;">[</span><span style="color: #8CD0D3;">0</span><span style="color: #DCDCCC;">]</span><span style="color: #BFEBBF;">!</span>.ant p <span style="color: #F0DFAF; font-weight: bold;">do</span>
-        throwError <span style="color: #CC9393;">"The first hypothesis does not match the goal's antecedent"</span>
+      <span style="color: #3f567b; font-weight: bold;">unless</span> &#8592; isExprDefEq chain<span style="color: #525252;">[</span><span style="color: #64502f;">0</span><span style="color: #525252;">]</span><span style="color: #64502f;">!</span>.ant p <span style="color: #3f567b; font-weight: bold;">do</span>
+        throwError <span style="color: #305f5e;">"The first hypothesis does not match the goal's antecedent"</span>
 
-      <span style="color: #F0DFAF; font-weight: bold;">unless</span> &#8592; isExprDefEq chain<span style="color: #DCDCCC;">[</span>chain.size <span style="color: #BFEBBF;">-</span> <span style="color: #8CD0D3;">1</span><span style="color: #DCDCCC;">]</span><span style="color: #BFEBBF;">!</span>.cons q <span style="color: #F0DFAF; font-weight: bold;">do</span>
-        throwError <span style="color: #CC9393;">"The last hypothesis does not match the goal's consequent"</span>
+      <span style="color: #3f567b; font-weight: bold;">unless</span> &#8592; isExprDefEq chain<span style="color: #525252;">[</span>chain.size <span style="color: #64502f;">-</span> <span style="color: #64502f;">1</span><span style="color: #525252;">]</span><span style="color: #64502f;">!</span>.cons q <span style="color: #3f567b; font-weight: bold;">do</span>
+        throwError <span style="color: #305f5e;">"The last hypothesis does not match the goal's consequent"</span>
 
-      <span style="color: #F0DFAF; font-weight: bold;">let</span> comp &#8592; chain.foldlM <span style="color: #DCDCCC;">(</span>init <span style="color: #BFEBBF;">:=</span> ImpProof.rfl p<span style="color: #DCDCCC;">)</span> <span style="color: #DCDCCC;">(</span><span style="color: #F0DFAF; font-weight: bold;">fun</span> pf1 pf2 <span style="color: #BFEBBF;">=&gt;</span> pf1.compose pf2<span style="color: #DCDCCC;">)</span>
+      <span style="color: #3f567b; font-weight: bold;">let</span> comp &#8592; chain.foldlM <span style="color: #525252;">(</span>init <span style="color: #64502f;">:=</span> ImpProof.rfl p<span style="color: #525252;">)</span> <span style="color: #525252;">(</span><span style="color: #3f567b; font-weight: bold;">fun</span> pf1 pf2 <span style="color: #64502f;">=&gt;</span> pf1.compose pf2<span style="color: #525252;">)</span>
 
-      <span style="color: #5F7F5F;">-- </span><span style="color: #7F9F7F;">It's good to do one last check that the proof has the correct type before assignment.
-</span>      <span style="color: #F0DFAF; font-weight: bold;">unless</span> &#8592; isDefEq <span style="color: #DCDCCC;">(</span>&#8592; inferType comp.proof<span style="color: #DCDCCC;">)</span> goalType <span style="color: #F0DFAF; font-weight: bold;">do</span>
-        throwError <span style="color: #CC9393;">"Invalid proof of goal"</span>
+      <span style="color: #949494;">-- </span><span style="color: #949494;">It's good to do one last check that the proof has the correct type before assignment.
+</span>      <span style="color: #3f567b; font-weight: bold;">unless</span> &#8592; isDefEq <span style="color: #525252;">(</span>&#8592; inferType comp.proof<span style="color: #525252;">)</span> goalType <span style="color: #3f567b; font-weight: bold;">do</span>
+        throwError <span style="color: #305f5e;">"Invalid proof of goal"</span>
       goal.assign comp.proof
 
-      <span style="color: #F0DFAF; font-weight: bold;">return</span> none
+      <span style="color: #3f567b; font-weight: bold;">return</span> none
 </pre>
 </div>
 
@@ -423,27 +423,24 @@ Consequently, I could write the following:
 </p>
 
 
-<div id="org44477af" class="figure">
+<div id="org7e87ced" class="figure">
 <p><img src="./images/syll-example.png" alt="syll-example.png" width="100%" />
 </p>
 <p><span class="figure-number">Figure 2: </span>Illustration of the <code>Syll</code> tactic on proving \(\ast 2\cdot 16\) and \(\ast 2\cdot 17\)</p>
 </div>
 
 <p>
-It was only a result of my greed to write a tactic that handles a more general
-form of syllogism; I believe in the case of the Principia, I could have got away
-with one that accepts two hypotheses.
+One could have got away with one that accepts only two hypotheses.
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-org46b956c" class="outline-2">
-<h2 id="org46b956c"><span class="section-number-2">4.</span> Remarks</h2>
+<div id="outline-container-org3eb0ddc" class="outline-2">
+<h2 id="org3eb0ddc"><span class="section-number-2">4.</span> Remarks</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 I do not see a particular use for this project except for learning the
-thought-process of building mathematics from scratch. Although the Principia is
-thought to be “a monumental failure”, as said by Freeman Dyson, it was an
+thought-process of building mathematics from scratch. It was an
 enriching experience for me to read as well as to formalize-especially after
 observing how the latter, more complicated results, are obtained using simpler
 ones I personally formalized.
@@ -451,14 +448,14 @@ ones I personally formalized.
 
 
 
-<div id="org27a0f54" class="figure">
+<div id="org4705646" class="figure">
 <p><img src="./images/building-from-constituents.png" alt="building-from-constituents.png" align="center" width="100%" />
 </p>
 </div>
 
 
 
-<div id="orgce0000f" class="figure">
+<div id="orgda4c755" class="figure">
 <p><img src="./images/logic-semantics-and-metamathematics-book-cover.png" alt="logic-semantics-and-metamathematics-book-cover.png" width="30%" align="right" />
 </p>
 </div>
@@ -472,7 +469,7 @@ Semantics, and Metamathematics.”
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Andrew Naguib</p>
-<p class="date">Created: 2025-08-14 Thu 03:30</p>
+<p class="date">Created: 2025-09-14 Sun 14:16</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

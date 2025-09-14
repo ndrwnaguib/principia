@@ -24,18 +24,18 @@ for its sophistication that it [[https://plato.stanford.edu/entries/pm-notation/
 of Philosophy (SEP)]]. Also, Prof. Landon Elkind's [[https://muse.jhu.edu/pub/1/article/904086][Squaring the Circles: a
 Genealogy of Principia’s Dot Notation]] explains the notation skillfully.
 
-I do not think there is a *need* to read them, I would like to believe that
-after reading a few examples of how some formulas were formalized and
-contrasting them against the Principia's notation should make it clear.
+I would like to believe that after reading a few examples of how some formulas
+were formalized and contrasting them against the Principia's notation should
+make it clear.
 
 Throughout the formalization, I tried to rigorously follow the proofs,
 with no or little added statements from my side, which were only necessary for
 the formalization but not the logical argument. Should you notice any inaccuracy
-(even if it does not necessarily falsify the proof).
+(even if it does not necessarily falsify the proof), please let me know.
 
 Before starting this project, I had already found [[https://www.principiarewrite.com/][formalization of the the
-Principia using Coq]], which is much mature work than this one. However, I still
-thought it would be fun to do it using Lean4 (See [[*Remarks][Remarks]]).
+Principia using Coq]], which is much more mature work than this one. However, I
+still thought it would be fun to do it using Lean4 (See [[*Remarks][Remarks]]).
 
 * Editing
 
@@ -160,15 +160,12 @@ Consequently, I could write the following:
 #+CAPTION: Illustration of the =Syll= tactic on proving $\ast 2\cdot 16$ and $\ast 2\cdot 17$
 [[./images/syll-example.png]]
 
-It was only a result of my greed to write a tactic that handles a more general
-form of syllogism; I believe in the case of the Principia, I could have got away
-with one that accepts two hypotheses.
+One could have got away with one that accepts only two hypotheses.
 
 * Remarks
 
 I do not see a particular use for this project except for learning the
-thought-process of building mathematics from scratch. Although the Principia is
-thought to be “a monumental failure”, as said by Freeman Dyson, it was an
+thought-process of building mathematics from scratch. It was an
 enriching experience for me to read as well as to formalize-especially after
 observing how the latter, more complicated results, are obtained using simpler
 ones I personally formalized.
