@@ -584,3 +584,8 @@ theorem ast_2_54 (p q: Prop) : (¬p → q) → (p ∨ q) := by
   intro pq
   rw [ast_1_01] at *
   exact (ast_2_38 q (¬¬p) p <| ast_2_14 p) pq
+
+theorem ast_2_55 (p q: Prop) : ¬ p → (p ∨ q) → q := by
+  intro pq
+  have Comm := ast_2_04 (p ∨ q) (¬p) q
+  exact (Comm <| ast_2_53 p q) pq
