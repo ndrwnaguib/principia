@@ -574,3 +574,8 @@ theorem ast_2_52 (p q: Prop) : ¬(p → q) → (¬p → ¬q) := by
 theorem ast_2_521 (p q: Prop) : ¬(p → q) → (q → p) := by
   intro pq
   exact ast_2_17 q p (ast_2_52 p q pq)
+
+theorem ast_2_53 (p q: Prop) : (p ∨ q) → (¬p → q) := by
+  intro pq
+  rw [ast_1_01] at *
+  exact (ast_2_38 q p ¬¬p <| ast_2_12 p) pq
