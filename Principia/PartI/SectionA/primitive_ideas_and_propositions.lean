@@ -586,6 +586,13 @@ theorem ast_2_54 (p q: Prop) : (¬p → q) → (p ∨ q) := by
   exact (ast_2_38 q (¬¬p) p <| ast_2_14 p) pq
 
 theorem ast_2_55 (p q: Prop) : ¬ p → (p ∨ q) → q := by
-  intro pq
+  intro not_p
   have Comm := ast_2_04 (p ∨ q) (¬p) q
-  exact (Comm <| ast_2_53 p q) pq
+  exact (Comm <| ast_2_53 p q) not_p
+
+theorem ast_2_56 (p q: Prop) : ¬q → (p ∨ q) → p := by
+  intro not_q
+  intro pq
+  have Perm := ast_1_4 p q pq
+  have ast_2_55 := ast_2_55 q p not_q
+  exact ast_2_55 <| Perm
