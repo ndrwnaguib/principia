@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2025-09-14 Sun 14:16 -->
+<!-- 2026-02-03 Tue 13:46 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Formalizing Whitehead &amp; Russell's Principia Mathematica Using Lean4</title>
@@ -236,20 +236,20 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orge919659">1. Notation</a></li>
-<li><a href="#orgd7ab2e0">2. Editing</a></li>
-<li><a href="#orge1b2e15">3. Notes on the formalization</a>
+<li><a href="#orgecaabd0">1. Notation</a></li>
+<li><a href="#org94c1b66">2. Editing</a></li>
+<li><a href="#org8a67d89">3. Notes on the formalization</a>
 <ul>
-<li><a href="#orgbbc4887">3.1. \(\ast 1 \cdot 11\)</a></li>
-<li><a href="#orgb12ef91">3.2. Metaprogramming <code>Syll</code></a></li>
+<li><a href="#orgab8de76">3.1. \(\ast 1 \cdot 11\)</a></li>
+<li><a href="#orgf456b03">3.2. Metaprogramming <code>Syll</code></a></li>
 </ul>
 </li>
-<li><a href="#org3eb0ddc">4. Remarks</a></li>
+<li><a href="#org5101921">4. Remarks</a></li>
 </ul>
 </div>
 </div>
 
-<div id="orgac4a974" class="figure">
+<div id="orgaa53232" class="figure">
 <p><img src="./images/principia-mathematica-book-cover.png" alt="principia-mathematica-book-cover.png" align="right" width="300px" />
 </p>
 </div>
@@ -258,10 +258,10 @@
 This <a href="https://github.com/ndrwnaguib/principia">project</a> aims to formalize the first volume of Whitehead &amp; Russell's
 Principia Mathematica using the Lean theorem prover. The goal is to ensure that
 the formalization aligns clearly with the corresponding theorems in the book to
-avoid confusion (See <a href="#orgb12ef91">Metaprogramming <code>Syll</code></a>)
+avoid confusion (See <a href="#orgf456b03">Metaprogramming <code>Syll</code></a>)
 </p>
-<div id="outline-container-orge919659" class="outline-2">
-<h2 id="orge919659"><span class="section-number-2">1.</span> Notation</h2>
+<div id="outline-container-orgecaabd0" class="outline-2">
+<h2 id="orgecaabd0"><span class="section-number-2">1.</span> Notation</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 <a href="https://plato.stanford.edu/entries/principia-mathematica/">Principia Mathematica</a>'s notation (Peano-Russell notation) is exceptionally known
@@ -284,14 +284,14 @@ the formalization but not the logical argument. Should you notice any inaccuracy
 </p>
 
 <p>
-Before starting this project, I had already found <a href="https://www.principiarewrite.com/">formalization of the the
+Before starting this project, I had already found <a href="https://www.principia-rewrite.org">formalization of the the
 Principia using Coq</a>, which is much more mature work than this one. However, I
-still thought it would be fun to do it using Lean4 (See <a href="#org3eb0ddc">Remarks</a>).
+still thought it would be fun to do it using Lean4 (See <a href="#org5101921">Remarks</a>).
 </p>
 </div>
 </div>
-<div id="outline-container-orgd7ab2e0" class="outline-2">
-<h2 id="orgd7ab2e0"><span class="section-number-2">2.</span> Editing</h2>
+<div id="outline-container-org94c1b66" class="outline-2">
+<h2 id="org94c1b66"><span class="section-number-2">2.</span> Editing</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 I have included a \(\LaTeX\) fragment with each theorem. If you use Emacs, I
@@ -301,18 +301,18 @@ Comments</code> extension. This is how it looked like for me:
 </p>
 
 
-<div id="org3d0a38d" class="figure">
+<div id="org135f4da" class="figure">
 <p><img src="./images/editing-experience.png" alt="editing-experience.png" align="center" width="100%" />
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-orge1b2e15" class="outline-2">
-<h2 id="orge1b2e15"><span class="section-number-2">3.</span> Notes on the formalization</h2>
+<div id="outline-container-org8a67d89" class="outline-2">
+<h2 id="org8a67d89"><span class="section-number-2">3.</span> Notes on the formalization</h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-orgbbc4887" class="outline-3">
-<h3 id="orgbbc4887"><span class="section-number-3">3.1.</span> \(\ast 1 \cdot 11\)</h3>
+<div id="outline-container-orgab8de76" class="outline-3">
+<h3 id="orgab8de76"><span class="section-number-3">3.1.</span> \(\ast 1 \cdot 11\)</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 In the Principia, *1.11 is repeatedly used to indicate the inference of a proposition
@@ -322,8 +322,8 @@ atoms, e.g., <code>&lt;|</code>, <code>simp</code>, etc.
 </p>
 </div>
 </div>
-<div id="outline-container-orgb12ef91" class="outline-3">
-<h3 id="orgb12ef91"><span class="section-number-3">3.2.</span> Metaprogramming <code>Syll</code></h3>
+<div id="outline-container-orgf456b03" class="outline-3">
+<h3 id="orgf456b03"><span class="section-number-3">3.2.</span> Metaprogramming <code>Syll</code></h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 The experience I planned for when reading the formalization is to have the
@@ -334,7 +334,7 @@ new tactic</a> to follow the notation for <code>Syll</code>:
 </p>
 
 
-<div id="org5ba34e8" class="figure">
+<div id="org1551d89" class="figure">
 <p><img src="./images/syll.png" alt="syll.png" align="center" width="50%" />
 </p>
 <p><span class="figure-number">Figure 1: </span>The <code>Syll</code> abbreviation defined in *B</p>
@@ -423,7 +423,7 @@ Consequently, I could write the following:
 </p>
 
 
-<div id="org7e87ced" class="figure">
+<div id="org385c9a8" class="figure">
 <p><img src="./images/syll-example.png" alt="syll-example.png" width="100%" />
 </p>
 <p><span class="figure-number">Figure 2: </span>Illustration of the <code>Syll</code> tactic on proving \(\ast 2\cdot 16\) and \(\ast 2\cdot 17\)</p>
@@ -435,8 +435,8 @@ One could have got away with one that accepts only two hypotheses.
 </div>
 </div>
 </div>
-<div id="outline-container-org3eb0ddc" class="outline-2">
-<h2 id="org3eb0ddc"><span class="section-number-2">4.</span> Remarks</h2>
+<div id="outline-container-org5101921" class="outline-2">
+<h2 id="org5101921"><span class="section-number-2">4.</span> Remarks</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 I do not see a particular use for this project except for learning the
@@ -448,14 +448,14 @@ ones I personally formalized.
 
 
 
-<div id="org4705646" class="figure">
+<div id="orge8c3da3" class="figure">
 <p><img src="./images/building-from-constituents.png" alt="building-from-constituents.png" align="center" width="100%" />
 </p>
 </div>
 
 
 
-<div id="orgda4c755" class="figure">
+<div id="orgdc29a64" class="figure">
 <p><img src="./images/logic-semantics-and-metamathematics-book-cover.png" alt="logic-semantics-and-metamathematics-book-cover.png" width="30%" align="right" />
 </p>
 </div>
@@ -469,7 +469,7 @@ Semantics, and Metamathematics.”
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Andrew Naguib</p>
-<p class="date">Created: 2025-09-14 Sun 14:16</p>
+<p class="date">Created: 2026-02-03 Tue 13:46</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

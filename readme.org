@@ -33,7 +33,7 @@ with no or little added statements from my side, which were only necessary for
 the formalization but not the logical argument. Should you notice any inaccuracy
 (even if it does not necessarily falsify the proof), please let me know.
 
-Before starting this project, I had already found [[https://www.principiarewrite.com/][formalization of the the
+Before starting this project, I had already found [[https://www.principia-rewrite.org][formalization of the the
 Principia using Coq]], which is much more mature work than this one. However, I
 still thought it would be fun to do it using Lean4 (See [[*Remarks][Remarks]]).
 
