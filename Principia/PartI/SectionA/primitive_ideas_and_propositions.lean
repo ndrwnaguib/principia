@@ -24,6 +24,7 @@ derived using previous ones.
 -/
 
 import Mathlib.Logic.Basic
+import Mathlib.Tactic.NthRewrite
 
 
 namespace Principia.Part1.Section1
@@ -596,3 +597,10 @@ theorem ast_2_56 (p q: Prop) : ¬q → (p ∨ q) → p := by
   have Perm := ast_1_4 p q pq
   have ast_2_55 := ast_2_55 q p not_q
   exact ast_2_55 <| Perm
+
+theorem ast_2_6 (p q: Prop) : (¬p → q) → (p → q) → q := by
+  intro not_p_imp_q
+  have ast_2_38 := ast_2_38 q (¬p) q not_p_imp_q
+  have Taut := ast_1_2 q
+  nth_rw 3 [ast_1_01]
+  Syll [ast_2_38, Taut]
